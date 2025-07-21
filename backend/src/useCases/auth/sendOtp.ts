@@ -7,6 +7,7 @@ import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorag
 import { IUserPersistance } from "../../domain/interfaces/respository/persistentStorage/IUserPersistance";
 
 export class SendOtpUseCase implements IsendOtpUseCase {
+
     private otpService: IOtpService;
     private otpTemplateGenerator: IOtpEmailContentGenerator
     private emailService: IEmailService
@@ -14,6 +15,7 @@ export class SendOtpUseCase implements IsendOtpUseCase {
     private userPersistance: IUserPersistance;
 
     constructor(otpService: IOtpService, otpTemplateGenerator: IOtpEmailContentGenerator, emailService: IEmailService, cacheStorage: IkeyValueTTLCaching, userPersistance:IUserPersistance) {
+
         this.otpService = otpService;
         this.otpTemplateGenerator = otpTemplateGenerator
         this.cacheStorage = cacheStorage;
@@ -37,6 +39,10 @@ export class SendOtpUseCase implements IsendOtpUseCase {
 
         emailTemplate.content = this.otpTemplateGenerator.generateTemplate(OTP);
         this.emailService.sendEmail(emailTemplate as Required<IOtpEmailTemplate>)
+<<<<<<< HEAD
         this.cacheStorage.setData(`otp/${email}`, 2 * 60, OTP)
+=======
+        this.cacheStorage.setData(`otp/${email}`, 5 * 60, OTP)
+>>>>>>> 06c7d04 (add a prifix otp/ befor key while saving in cache db)
     }
 }
