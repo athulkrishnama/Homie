@@ -1,4 +1,5 @@
 import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorage/IKeyValueTTLCaching";
+
 import { IVerifyOtpUseCase } from "../../domain/interfaces/useCase/auth/IVerifyOtp";
 
 export class VerifyOtpUseCase implements IVerifyOtpUseCase {
@@ -14,9 +15,9 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
             throw new Error("OTP Expired or OTP not requested")
         }
         const otpVerified = otp === cachecdOtp;
-        if (otpVerified) {
+
             await this.cacheStorage.deleteData(`otp/${email}`);
-        }
+
 
         return otpVerified;
     }
