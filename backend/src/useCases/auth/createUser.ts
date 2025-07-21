@@ -29,6 +29,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
 
         const newUser = await this.userPersistance.create(user);
 
+
         if (!newUser) {
             throw new Error("Error while creating new user")
         }
