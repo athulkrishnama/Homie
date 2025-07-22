@@ -1,8 +1,8 @@
 import { IOtpEmailContentGenerator } from "../../../domain/interfaces/service/emailContentGenerators/IOtpEmailContentGenerator";
 
 export class OtpEmailContentGenerator implements IOtpEmailContentGenerator {
-    generateTemplate(otp: string): string {
-        return `
+  generateTemplate(otp: string): string {
+    return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -50,5 +50,5 @@ export class OtpEmailContentGenerator implements IOtpEmailContentGenerator {
     </body>
     </html>
   `
-    }
+  }
 }
