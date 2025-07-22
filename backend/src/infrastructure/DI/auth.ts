@@ -1,11 +1,13 @@
+import { AdminLoginController } from "../../interfaceAdapters/controllers/auth/adminLogin";
 import { LoginUserController } from "../../interfaceAdapters/controllers/auth/loginUser";
 import { RegisterUserController } from "../../interfaceAdapters/controllers/auth/registerUser";
 import { sendOtpController } from "../../interfaceAdapters/controllers/auth/sendOtp";
+import { AdminLoginUseCase } from "../../useCases/auth/adminLogin";
 import { CacheUserUseCase } from "../../useCases/auth/cacheUser";
 import { CreateUserUseCase } from "../../useCases/auth/createUser";
 import { sendOtpUseCase } from "../../useCases/auth/sendOtp";
-import {  TokenCreationUseCase } from "../../useCases/auth/TokenCreation";
-import {  UserLoginUseCase } from "../../useCases/auth/userlogin";
+import { TokenCreationUseCase } from "../../useCases/auth/TokenCreation";
+import { UserLoginUseCase } from "../../useCases/auth/userlogin";
 import { VerifyOtpUseCase } from "../../useCases/auth/verifyOtp";
 import { KeyValueTTLCaching } from "../cacheStorage/redis/keyValueTTLCaching";
 import { userRepository } from "../persistantStorage/mongodb/repositories/userRepository";
@@ -41,3 +43,8 @@ const userLoginUseCase = new UserLoginUseCase(userPersistance, hashService)
 const cacheUserUseCase = new CacheUserUseCase(cacheStorage)
 
 export const injectedLoginUserController = new LoginUserController(userLoginUseCase, tokenCreationUseCase, cacheUserUseCase)
+
+// Admin Login Controller
+const adminLoginUseCase = new AdminLoginUseCase(userPersistance, hashService);
+
+export const injectedAdminLoginController = new AdminLoginController(adminLoginUseCase, tokenCreationUseCase)
