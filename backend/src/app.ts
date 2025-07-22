@@ -6,6 +6,7 @@ import { createStream } from 'rotating-file-stream'
 import morgan from 'morgan';
 import path from 'path'
 import { DateTimeUtil } from './infrastructure/utils/DateTimeUtil';
+import cookieParser from 'cookie-parser'
 
 class ExpressApp {
     private app: Express;
@@ -31,6 +32,7 @@ class ExpressApp {
 
     private setMiddlewares() {
         this.app.use(express.json())
+        this.app.use(cookieParser())
     }
 
     private setLoggingMiddleware() {
