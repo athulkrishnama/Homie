@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { injectedCreateUserController, injectedLoginUserController, injectedRegisterSendOtpController } from "../../DI/auth";
+import { injectedAdminLoginController, injectedCreateUserController, injectedLoginUserController, injectedRegisterSendOtpController } from "../../DI/auth";
 
 export class AuthRouter {
     private router: Router
@@ -19,6 +19,10 @@ export class AuthRouter {
 
         this.router.post("/login", (req: Request, res: Response) => {
             injectedLoginUserController.handleUserLogin(req, res);
+        })
+
+        this.router.post("/adminLogin", (req: Request, res: Response) => {
+            injectedAdminLoginController.handleAdminLogin(req, res);
         })
     }
 
