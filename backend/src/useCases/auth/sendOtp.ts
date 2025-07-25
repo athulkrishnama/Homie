@@ -3,7 +3,7 @@ import { IOtpEmailContentGenerator } from "../../domain/interfaces/service/email
 import { IOtpService } from "../../domain/interfaces/service/IOtp";
 import { IsendOtpUseCase } from "../../domain/interfaces/useCase/auth/ISendOtp";
 import { IEmailService } from "../../domain/interfaces/service/IEmailService";
-import { IkeyValueTTLCaching } from "../../domain/interfaces/respository/cacheStorage/IKeyValueTTLCaching";
+import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorage/IKeyValueTTLCaching";
 
 export class sendOtpUseCase implements IsendOtpUseCase {
     private otpService: IOtpService;

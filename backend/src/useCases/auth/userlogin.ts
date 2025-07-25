@@ -4,17 +4,17 @@ import { IHashService } from "../../domain/interfaces/service/IHashService";
 import { IUserLogin } from "../../domain/interfaces/useCase/auth/IUserLogin";
 
 export class UserLoginUseCase implements IUserLogin {
-    private userRepository;
+    private userPersistance;
     private hashService;
 
-    constructor(userRepository: IUserPersistance, hashService: IHashService) {
-        this.userRepository = userRepository;
+    constructor(userPersistance: IUserPersistance, hashService: IHashService) {
+        this.userPersistance = userPersistance;
         this.hashService = hashService;
     }
 
     async userLogin(email: string, password: string): Promise<loginUserDTO> {
 
-        const user = await this.userRepository.findByEmail(email);
+        const user = await this.userPersistance.findByEmail(email);
 
         if (!user) {
             throw new Error("User not found");
