@@ -4,12 +4,12 @@ import { IHashService } from "../../domain/interfaces/service/IHashService";
 import { IAdminLogin } from "../../domain/interfaces/useCase/auth/IAdminLogin";
 
 export class AdminLoginUseCase implements IAdminLogin {
-    constructor(private userRepository: IUserPersistance, private hashService: IHashService) {
+    constructor(private userPersistance: IUserPersistance, private hashService: IHashService) {
 
     }
 
     async adminLogin(email: string, password: string): Promise<adminLoginDTO> {
-        const admin = await this.userRepository.findByEmail(email);
+        const admin = await this.userPersistance.findByEmail(email);
         if (!admin) {
             throw new Error('Admin not found');
         }

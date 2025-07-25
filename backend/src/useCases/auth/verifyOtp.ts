@@ -1,4 +1,4 @@
-import { IkeyValueTTLCaching } from "../../domain/interfaces/respository/cacheStorage/IKeyValueTTLCaching";
+import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorage/IKeyValueTTLCaching";
 import { IVerifyOtpUseCase } from "../../domain/interfaces/useCase/auth/IVerifyOtp";
 
 export class VerifyOtpUseCase implements IVerifyOtpUseCase {
