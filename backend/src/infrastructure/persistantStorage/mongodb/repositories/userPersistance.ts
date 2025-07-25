@@ -2,7 +2,7 @@ import { userEntity } from "../../../../domain/entities/user/userEntity";
 import { IUserPersistance } from "../../../../domain/interfaces/respository/persistentStorage/IUserPersistance";
 import { UserModel } from "../models/userModel";
 
-export class userRepository implements IUserPersistance{
+export class UserPersistance implements IUserPersistance{
     async createUser(user: userEntity): Promise<userEntity> {
         return await UserModel.create(user);
     }
