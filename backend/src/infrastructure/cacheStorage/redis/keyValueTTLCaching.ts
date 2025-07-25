@@ -1,5 +1,5 @@
 import { createClient, RedisClientType } from "redis";
-import { IkeyValueTTLCaching } from "../../../domain/interfaces/respository/cacheStorage/IKeyValueTTLCaching";
+import { IkeyValueTTLCaching } from "../../../domain/interfaces/service/cacheStorage/IKeyValueTTLCaching";
 
 export class KeyValueTTLCaching implements IkeyValueTTLCaching {
     private redisClient: RedisClientType;

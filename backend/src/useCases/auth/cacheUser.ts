@@ -1,5 +1,5 @@
 import { loginUserDTO } from "../../domain/interfaces/DTOs/userDTOs/loginUserDTO";
-import { IkeyValueTTLCaching } from "../../domain/interfaces/respository/cacheStorage/IKeyValueTTLCaching";
+import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorage/IKeyValueTTLCaching";
 import { ICacheUserUseCase } from "../../domain/interfaces/useCase/auth/ICacheUser";
 
 export class CacheUserUseCase implements ICacheUserUseCase {
