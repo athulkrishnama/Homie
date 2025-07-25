@@ -1,54 +1,41 @@
 import { IOtpEmailContentGenerator } from "../../../domain/interfaces/service/emailContentGenerators/IOtpEmailContentGenerator";
+import { BaseEmailContentGenerator } from "./baseEmailContentGenerator";
 
-export class OtpEmailContentGenerator implements IOtpEmailContentGenerator {
+export class OtpEmailContentGenerator extends BaseEmailContentGenerator implements IOtpEmailContentGenerator {
   generateTemplate(otp: string): string {
-    return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>Your OTP Code</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          background-color: #f4f4f4;
-          margin: 0;
-          padding: 0;
-        }
-        .container {
-          max-width: 600px;
-          background-color: #ffffff;
-          margin: 50px auto;
-          padding: 20px;
-          border-radius: 10px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-          text-align: center;
-        }
-        .otp {
-          font-size: 32px;
-          font-weight: bold;
-          color: #2c3e50;
-          margin: 20px 0;
-        }
-        .footer {
-          margin-top: 30px;
-          font-size: 12px;
-          color: #888;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <p>Your OTP for verification is:</p>
-        <div class="otp">${otp}</div>
-        <p>This OTP is valid for only 10 minutes. Do not share it with anyone.</p>
-        <div class="footer">
-          &copy; ${new Date().getFullYear()} Homie. All rights reserved.
-        </div>
-      </div>
-    </body>
-    </html>
-  `
+    const body = `<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#ffffff; padding:40px 0;">
+                    <tr>
+                      <td align="center">
+                        <table width="600" cellpadding="0" cellspacing="0" style="width:600px; padding:0 20px;">
+                          <tr>
+                            <td style="color:#000000; font-size:16px; font-family:Arial, sans-serif; line-height:1.5;">
+
+                              <p style="margin:0 0 20px 0;">
+                                To proceed with your request, please use the One-Time Password (OTP) below:
+                              </p>
+
+                              <p style="background-color:#f5f5f5; color:#000000; font-size:28px; font-weight:bold; text-align:center; padding:20px; border:1px dashed #cccccc; letter-spacing:4px; margin:30px 0;">
+                                ${otp}
+                              </p>
+
+                              <p style="margin:20px 0 0 0;">
+                                This OTP is valid for the next <strong>10 minutes</strong>. Please do not share it with anyone.
+                              </p>
+
+                              <p style="margin:30px 0 0 0;">
+                                If you didn’t request this, you can safely ignore this email.
+                              </p>
+
+                              <p style="margin:30px 0 0 0;">
+                                Thanks,<br>
+                                <strong>Homie Team</strong>
+                              </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                </table>`
+    return this.htmlWrapper(this.generateHeader() + body + this.generateFooter())
   }
 }
