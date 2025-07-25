@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { injectedAdminLoginController, injectedCreateUserController, injectedLoginUserController, injectedRegisterSendOtpController } from "../../DI/auth";
+import { injectedAdminLoginController, injectedCreateUserController, injectedLoginUserController, injectedRegisterSendOtpController, injectedResendOtpController } from "../../DI/auth";
 
 export class AuthRouter {
     private router: Router
@@ -11,6 +11,10 @@ export class AuthRouter {
     private setRoute() {
         this.router.post('/signup', (req: Request, res: Response) => {
             injectedRegisterSendOtpController.handleSendOtp(req, res)
+        })
+
+        this.router.post('/resendOtp', (req:Request, res:Response)=>{
+            injectedResendOtpController.handleResendOtp(req,res)
         })
 
         this.router.post('/verify', (req: Request, res: Response) => {
