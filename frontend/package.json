@@ -11,6 +11,7 @@
     "generatePWAAssets": "pwa-assets-generator --preset minimal public/logo.svg"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.11",
@@ -20,13 +21,16 @@
     "clsx": "^2.1.1",
     "i18next": "^25.3.2",
     "lucide-react": "^0.525.0",
+    "motion": "^12.23.9",
     "path": "^0.12.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.61.1",
     "react-i18next": "^15.6.1",
     "react-redux": "^9.2.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "zod": "^4.0.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
