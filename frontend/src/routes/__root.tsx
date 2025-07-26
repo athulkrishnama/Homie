@@ -8,7 +8,7 @@ import {Provider} from 'react-redux'
 import {store} from '@/store/store'
 
 export const Route = createRootRoute({
-    component: RootComponent
+    component: RootComponent,
 })
 
 
@@ -19,6 +19,7 @@ export default function RootComponent() {
         const lang = navigator?.language;
         store.dispatch(setLanguage(lang))
         i18next.changeLanguage(lang)
+        document.documentElement.setAttribute('lang', lang)
     }, [])
 
     return (
