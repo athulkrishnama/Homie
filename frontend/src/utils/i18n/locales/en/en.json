@@ -1,6 +1,10 @@
 {
-    "button":{
-        "save":"saveme",
-        "test":"testing"
+    "brand": {
+        "name": "HOMIE"
+    },
+    "button": {
+        "save": "saveme",
+        "submit": "Submit",
+        "submiting": "Submitting"
     }
 }

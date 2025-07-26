@@ -3,6 +3,8 @@ export default {
         name: "brand.name"
     },
     button: {
-        save: "button.save"
+        save: "button.save",
+        submit:"button.submit",
+        submiting:"button.submiting"
     }
 }
