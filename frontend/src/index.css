@@ -118,3 +118,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+.nerko-one {
+  font-family: "Nerko One", cursive;
+  font-style: normal;
+}
+*{
+  font-family: 'Inter';
+}
+*:lang(ml){
+  font-family:  "Noto Sans Malayalam", sans-serif;
+}
