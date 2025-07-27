@@ -1,4 +1,5 @@
-import 'dotenv/config'
+import dotenv from  'dotenv'
+dotenv.config({path:`.env.${process.env.NODE_ENV}`})
 import { MongodbConnect } from './config/mongodbConfig'
 import express, { Express } from 'express'
 import { AuthRouter } from './infrastructure/routes/auth/authRoute';
