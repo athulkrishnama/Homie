@@ -3,12 +3,22 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { AnimatePresence, motion } from 'motion/react'
+import {  AnimatePresence, motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import transalationKey from '@/utils/i18n/transalationKey'
 import { useNavigate } from '@tanstack/react-router'
 
 const errorStyle = 'border-red-500 focus-visible:border-red-500 shadow-red-500 outline-red-500 border-r-red-500 focus-visible:ring-0';
+const inputAnimation = {
+    initial:{
+        y:10,
+        opacity:0
+    },
+    animate:{
+        y:0,
+        opacity:1
+    }
+}
 function LoginForm() {
     const { t } = useTranslation()
     const navigate = useNavigate();
@@ -32,7 +42,7 @@ function LoginForm() {
     return (
         
         <form onSubmit={handleSubmit(onSubmit)} className='w-1/2'>
-            <div>
+            <motion.div initial={inputAnimation.initial} animate={inputAnimation.animate}>
                 <label htmlFor="" className=''>Email</label>
                 <Input {...register('email')} className={`z-50 mt-1 ${errors.email && errorStyle}`} />
                 <div className='h-7 overflow-hidden'>
@@ -40,9 +50,9 @@ function LoginForm() {
                         {errors.email && <motion.p className='z-0 text-red-500' initial={{ y: -50 }} animate={{ y: 0 }} exit={{ y: -50 }}>{errors.email.message}</motion.p>}
                     </AnimatePresence>
                 </div>
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div initial={inputAnimation.initial} animate={inputAnimation.animate}>
                 <label htmlFor="" className=''>Password</label>
                 <Input {...register('password')} className={`z-50 mt-1 ${errors.password && errorStyle}`} type='password' />
                 <div className='h-7 overflow-hidden'>
@@ -50,7 +60,7 @@ function LoginForm() {
                         {errors.password && <motion.p className='z-0 text-red-500' initial={{ y: -50 }} animate={{ y: 0 }} exit={{ y: -50 }}>{errors.password.message}</motion.p>}
                     </AnimatePresence>
                 </div>
-            </div>
+            </motion.div>
 
             <Button type='submit' className='w-full'>{t(isSubmitting ? transalationKey.button.submiting : transalationKey.button.submit)}</Button>
             <p className='my-2 font-medium hover:cursor-pointer' onClick={()=>navigate({to:'/user/signup'}) }>Register</p>
