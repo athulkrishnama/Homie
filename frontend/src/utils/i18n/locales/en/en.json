@@ -6,5 +6,26 @@
         "save": "saveme",
         "submit": "Submit",
         "submiting": "Submitting"
+    },
+    "userlogin": {
+        "form": {
+            "labels": {
+                "email": "Email",
+                "password": "Password",
+                "register": "Register",
+                "login": "Login"
+            },
+            "validations": {
+                "email": {
+                    "required": "Email is required",
+                    "invalid": "Invalid email"
+                },
+                "password": {
+                    "required": "password is required",
+                    "min": "Minimum {{count}} characters are required",
+                    "max": "Maximun {{count}} characters are allowed"
+                }
+            }
+        }
     }
 }
