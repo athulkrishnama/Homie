@@ -8,7 +8,7 @@ export const Route = createFileRoute('/user/login')({
 })
 
 function RouteComponent() {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   return <div className='h-screen w-screen flex'>
     <div className='bg-black flex-1/2 flex items-center justify-center'>
       <div className='flex gap-8'>
@@ -17,8 +17,8 @@ function RouteComponent() {
       </div>
     </div>
     <div className='flex-1/2 flex flex-col items-center justify-center gap-10'>
-      <h1 className='text-4xl font-bold'>Login</h1>
-      <LoginForm/>
+      <h1 className='text-4xl font-bold'>{t(transalationKey.userlogin.form.labels.login)}</h1>
+      <LoginForm />
     </div>
   </div>
 }
