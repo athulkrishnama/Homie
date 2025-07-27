@@ -3,20 +3,20 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import {  AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import transalationKey from '@/utils/i18n/transalationKey'
 import { useNavigate } from '@tanstack/react-router'
 
 const errorStyle = 'border-red-500 focus-visible:border-red-500 shadow-red-500 outline-red-500 border-r-red-500 focus-visible:ring-0';
 const inputAnimation = {
-    initial:{
-        y:10,
-        opacity:0
+    initial: {
+        y: 10,
+        opacity: 0
     },
-    animate:{
-        y:0,
-        opacity:1
+    animate: {
+        y: 0,
+        opacity: 1
     }
 }
 function LoginForm() {
@@ -26,8 +26,8 @@ function LoginForm() {
 
     // validation schema
     const loginFormSchema = z.object({
-        email: z.string({ error: "Email is Required" }).email({ error: "Email should be valid", }),
-        password: z.string().min(8, { error: "Minimum 8 letters should be there" })
+        email: z.string().length(0, { error: t(transalationKey.userlogin.form.validations.email.required) }).email({ error: t(transalationKey.userlogin.form.validations.email.invalid) }),
+        password: z.string().min(8, { error: t(transalationKey.userlogin.form.validations.password.min, { count: 8 }) }).max(15, { error: t(transalationKey.userlogin.form.validations.password.max, { count: 15 }) })
     })
 
     type loginFormFields = z.infer<typeof loginFormSchema>
@@ -40,10 +40,10 @@ function LoginForm() {
         console.log(data)
     }
     return (
-        
+
         <form onSubmit={handleSubmit(onSubmit)} className='w-1/2'>
             <motion.div initial={inputAnimation.initial} animate={inputAnimation.animate}>
-                <label htmlFor="" className=''>Email</label>
+                <label htmlFor="" className=''>{t(transalationKey.userlogin.form.labels.email)}</label>
                 <Input {...register('email')} className={`z-50 mt-1 ${errors.email && errorStyle}`} />
                 <div className='h-7 overflow-hidden'>
                     <AnimatePresence mode='sync' >
@@ -53,7 +53,7 @@ function LoginForm() {
             </motion.div>
 
             <motion.div initial={inputAnimation.initial} animate={inputAnimation.animate}>
-                <label htmlFor="" className=''>Password</label>
+                <label htmlFor="" className=''>{t(transalationKey.userlogin.form.labels.password)}</label>
                 <Input {...register('password')} className={`z-50 mt-1 ${errors.password && errorStyle}`} type='password' />
                 <div className='h-7 overflow-hidden'>
                     <AnimatePresence mode='sync' >
@@ -63,7 +63,7 @@ function LoginForm() {
             </motion.div>
 
             <Button type='submit' className='w-full'>{t(isSubmitting ? transalationKey.button.submiting : transalationKey.button.submit)}</Button>
-            <p className='my-2 font-medium hover:cursor-pointer' onClick={()=>navigate({to:'/user/signup'}) }>Register</p>
+            <p className='my-2 font-medium hover:cursor-pointer' onClick={() => navigate({ to: '/user/signup' })}>{t(transalationKey.userlogin.form.labels.register)}</p>
         </form>
     )
 }
