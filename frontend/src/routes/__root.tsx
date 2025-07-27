@@ -4,8 +4,9 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
 import { useEffect } from "react";
 import { setLanguage } from "@/store/slices/lang/langSlice";
 import i18next from "i18next";
-import {Provider} from 'react-redux'
-import {store} from '@/store/store'
+import { Provider } from 'react-redux'
+import { store } from '@/store/store'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -13,6 +14,9 @@ export const Route = createRootRoute({
 
 
 export default function RootComponent() {
+
+    const queryClient = new QueryClient()
+
 
     // setting default language on load
     useEffect(() => {
@@ -24,10 +28,12 @@ export default function RootComponent() {
 
     return (
         <>
-            <Provider store={store}>
-                <Outlet />
-                <TanStackRouterDevtools />
-            </Provider>
+            <QueryClientProvider client={queryClient}>
+                <Provider store={store}>
+                    <Outlet />
+                    <TanStackRouterDevtools />
+                </Provider>
+            </QueryClientProvider>
         </>
     )
 }
