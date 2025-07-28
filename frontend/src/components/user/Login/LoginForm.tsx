@@ -7,6 +7,10 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import transalationKey from '@/utils/i18n/transalationKey'
 import { useNavigate } from '@tanstack/react-router'
+import { useUserLoginMutation } from '@/hooks/userApiHook'
+import { toast } from 'sonner'
+import { useAppDispatch } from '@/hooks/storeHook'
+import { setToken } from '@/store/slices/user/userTokenSlice'
 
 const errorStyle = 'border-red-500 focus-visible:border-red-500 shadow-red-500 outline-red-500 border-r-red-500 focus-visible:ring-0';
 const inputAnimation = {
@@ -20,24 +24,35 @@ const inputAnimation = {
     }
 }
 function LoginForm() {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
     const navigate = useNavigate();
+    const { mutate } = useUserLoginMutation();
+    const dispatch = useAppDispatch();
 
 
     // validation schema
     const loginFormSchema = z.object({
-        email: z.string().length(0, { error: t(transalationKey.userlogin.form.validations.email.required) }).email({ error: t(transalationKey.userlogin.form.validations.email.invalid) }),
-        password: z.string().min(8, { error: t(transalationKey.userlogin.form.validations.password.min, { count: 8 }) }).max(15, { error: t(transalationKey.userlogin.form.validations.password.max, { count: 15 }) })
-    })
+        email: z.string().trim().min(1, { error: t(transalationKey.userlogin.form.validations.email.required) }).email({ error: t(transalationKey.userlogin.form.validations.email.invalid) }),
+        password: z.string().min(1, { error: t(transalationKey.userlogin.form.validations.password.required) }).min(8, { error: t(transalationKey.userlogin.form.validations.password.min, { count: 8 }) }).max(15, { error: t(transalationKey.userlogin.form.validations.password.max, { count: 15 }) })
+    });
 
-    type loginFormFields = z.infer<typeof loginFormSchema>
+    type loginFormFields = z.infer<typeof loginFormSchema>;
 
     const { register, formState: { errors, isSubmitting }, handleSubmit } = useForm<loginFormFields>({
         resolver: zodResolver(loginFormSchema)
-    })
+    });
 
-    const onSubmit: SubmitHandler<loginFormFields> = (data) => {
-        console.log(data)
+    const onSubmit: SubmitHandler<loginFormFields> = (data: loginFormFields) => {
+        mutate(data, {
+            onSuccess: (data) => {
+                dispatch(setToken(data.accessToken));
+                toast.success(data.message);
+            },
+            onError: (err) => {
+                toast.error(err.message);
+                console.log(err);
+            }
+        })
     }
     return (
 
