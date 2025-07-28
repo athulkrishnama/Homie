@@ -5,7 +5,10 @@
     "button": {
         "save": "saveme",
         "submit": "Submit",
-        "submiting": "Submitting"
+        "submiting": "Submitting",
+        "verify": "Verify",
+        "verifying": "Verifying",
+        "cancel": "Cancel"
     },
     "userlogin": {
         "form": {
@@ -24,6 +27,40 @@
                     "required": "password is required",
                     "min": "Minimum {{count}} characters are required",
                     "max": "Maximun {{count}} characters are allowed"
+                }
+            }
+        }
+    },
+    "usersignup": {
+        "form": {
+            "lables": {
+                "signup": "Signup",
+                "fullname": "Fullname",
+                "email": "Email",
+                "password": "Password",
+                "confirmPassword": "Confirm Password",
+                "enterotp": "Enter Your OTP",
+                "otpsentto": "We've sent OTP to {{email}}",
+                "resentOtp": "Resend OTP",
+                "alreadyHaveAccount": "Already have account"
+            },
+            "validations": {
+                "fullname": {
+                    "required": "Full name is requried",
+                    "min": "Minimum {{count}} characters are required",
+                    "max": "Maximum {{count}} characteres are allowed"
+                },
+                "email": {
+                    "required": "Email is required",
+                    "invalid": "Email is invalid"
+                },
+                "password": {
+                    "required": "Password is required",
+                    "invalid": "Password must be contain a lowercase letter , uppercase letter, number, special character and atleast 8 character long"
+                },
+                "confirmPassword": {
+                    "required": "Confirm Password is required",
+                    "notsame": "Password and Confirm Password is not matching"
                 }
             }
         }
