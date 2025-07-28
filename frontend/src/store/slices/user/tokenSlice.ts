@@ -1,14 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-export interface userTokenState {
+export interface tokenState {
     token: string | null
 }
 
-const initialState: userTokenState = {
+const initialState: tokenState = {
     token: null
 }
 
-const userTokenSlice = createSlice({
+const tokenSlice = createSlice({
     name: "userToken",
     initialState,
     reducers: {
@@ -21,6 +21,6 @@ const userTokenSlice = createSlice({
     }
 })
 
-export const { deleteToken, setToken } = userTokenSlice.actions;
+export const { deleteToken, setToken } = tokenSlice.actions;
 
-export default userTokenSlice.reducer;
+export default tokenSlice.reducer;
