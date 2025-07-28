@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import langSlice from './slices/lang/langSlice';
-import userTokenSlice from './slices/user/userTokenSlice';
+import tokenSlice from './slices/user/tokenSlice';
 
 
 export const store = configureStore({
     reducer: {
         lang: langSlice,
-        userToken: userTokenSlice
+        token: tokenSlice
     }
 })
 

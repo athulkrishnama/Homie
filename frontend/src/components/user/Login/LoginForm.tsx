@@ -10,7 +10,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useUserLoginMutation } from '@/hooks/userApiHook'
 import { toast } from 'sonner'
 import { useAppDispatch } from '@/hooks/storeHook'
-import { setToken } from '@/store/slices/user/userTokenSlice'
+import { setToken } from '@/store/slices/user/tokenSlice'
 
 const errorStyle = 'border-red-500 focus-visible:border-red-500 shadow-red-500 outline-red-500 border-r-red-500 focus-visible:ring-0';
 const inputAnimation = {
