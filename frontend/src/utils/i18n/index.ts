@@ -14,6 +14,6 @@ const resources = {
 
 i18n.use(initReactI18next).init({
     resources,
-    fallbackLng:'ml',
+    fallbackLng:'en',
     
 })
