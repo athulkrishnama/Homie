@@ -1,10 +1,18 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import Logo from '@/assets/logoWhite.svg'
 import { useTranslation } from 'react-i18next'
 import transalationKey from '@/utils/i18n/transalationKey'
 import LoginForm from '@/components/user/Login/LoginForm'
+import { isAuthenticated } from '@/utils/auth'
+
+
 export const Route = createFileRoute('/user/login')({
   component: RouteComponent,
+  beforeLoad:()=>{
+    if(!isAuthenticated()){
+      throw redirect({to:"/user", replace:true})
+    }
+  }
 })
 
 function RouteComponent() {
