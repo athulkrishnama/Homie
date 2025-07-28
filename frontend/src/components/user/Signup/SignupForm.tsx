@@ -25,8 +25,8 @@ const inputAnimation = {
 }
 
 function SignupForm() {
-    const { mutate:sendOtpMutate } = useUserSignupSendOtpMutation()
-    const {mutate:verifyOtpMutate} = useUserSignupVerifyMutation();
+    const { mutate: sendOtpMutate } = useUserSignupSendOtpMutation()
+    const { mutate: verifyOtpMutate } = useUserSignupVerifyMutation();
     const [otpModalOpen, setOtpModalOpen] = useState(false);
     const navigate = useNavigate();
     // schema
@@ -51,13 +51,13 @@ function SignupForm() {
         })
     }
 
-    const handleOtpSubmit = (otp:string)=>{
-        verifyOtpMutate({otp, userData:getValues()},{
-            onSuccess : (response)=>{
+    const handleOtpSubmit = (otp: string) => {
+        verifyOtpMutate({ otp, userData: getValues() }, {
+            onSuccess: (response) => {
                 toast.success(response.message);
-                navigate({to:'/user/login', replace:true})
+                navigate({ to: '/user/login', replace: true })
             },
-            onError: (err)=>{
+            onError: (err) => {
                 toast.error(err.message)
             }
         })
@@ -69,7 +69,7 @@ function SignupForm() {
 
     return (
         <>
-            <OTPModal isOpen={otpModalOpen} setIsOpen={setOtpModalOpen} email={getValues('email')} onSubmit={handleOtpSubmit}/>
+            <OTPModal isOpen={otpModalOpen} setIsOpen={setOtpModalOpen} email={getValues('email')} onSubmit={handleOtpSubmit} />
             <form onSubmit={handleSubmit(onSubmit)} className="w-1/2">
 
                 {/* email */}
@@ -115,7 +115,7 @@ function SignupForm() {
                         </AnimatePresence>
                     </div>
                 </motion.div>
-                <p className="font-medium hover:cursor-pointer" onClick={()=>navigate({to:'/user/login'})}>{t(transalationKey.usersignup.form.lables.alreadyHaveAccount)}</p>
+                <p className="font-medium hover:cursor-pointer" onClick={() => navigate({ to: '/user/login' })}>{t(transalationKey.usersignup.form.lables.alreadyHaveAccount)}</p>
                 <Button type="submit" className="mt-3">{isSubmitting ? t(transalationKey.button.submiting) : t(transalationKey.button.submit)}</Button>
             </form>
         </>
