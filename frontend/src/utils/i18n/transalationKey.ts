@@ -5,7 +5,10 @@ export default {
     button: {
         save: "button.save",
         submit: "button.submit",
-        submiting: "button.submiting"
+        submiting: "button.submiting",
+        verify: "button.verify",
+        verifying: "button.verifying",
+        cancel: "button.cancel"
     },
     userlogin: {
         form: {
@@ -24,7 +27,40 @@ export default {
                     required: 'userlogin.form.validations.password.required',
                     min: 'userlogin.form.validations.password.min',
                     max: 'userlogin.form.validations.password.max'
-
+                }
+            }
+        }
+    },
+    usersignup: {
+        form: {
+            lables: {
+                signup: "usersignup.form.lables.signup",
+                fullname: "usersignup.form.lables.fullname",
+                email: "usersignup.form.lables.email",
+                password: "usersignup.form.lables.password",
+                confirmPassword: "usersignup.form.lables.confirmPassword",
+                enterotp: "usersignup.form.lables.enterotp",
+                otpsetdto: "usersignup.form.lables.otpsentto",
+                resentOtp: "usersignup.form.lables.resentOtp",
+                alreadyHaveAccount: "usersignup.form.lables.alreadyHaveAccount"
+            },
+            validations: {
+                fullname: {
+                    required: "usersignup.form.validations.fullname.required",
+                    min: "usersignup.form.validations.fullname.min",
+                    max: "usersignup.form.validations.fullname.max",
+                },
+                email: {
+                    required: "usersignup.form.validations.email.required",
+                    invalid: "usersignup.form.validations.email.invalid",
+                },
+                password: {
+                    required: "usersignup.form.validations.password.required",
+                    invalid: "usersignup.form.validations.password.invalid",
+                },
+                confirmPassword: {
+                    required: "usersignup.form.validations.confirmPassword.required",
+                    notsame: "usersignup.form.validations.confirmPassword.notsame",
                 }
             }
         }
