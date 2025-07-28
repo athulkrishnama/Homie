@@ -27,8 +27,8 @@ export default function RootComponent() {
         if (!lang) {
             lang = navigator?.language;
             store.dispatch(setLanguage(lang))
-            i18next.changeLanguage(lang)
         }
+        i18next.changeLanguage(lang)
         document.documentElement.setAttribute('lang', lang)
     }, [])
 
