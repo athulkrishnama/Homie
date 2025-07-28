@@ -1,5 +1,5 @@
-import dotenv from  'dotenv'
-dotenv.config({path:`.env.${process.env.NODE_ENV}`})
+import dotenv from 'dotenv'
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 import { MongodbConnect } from './config/mongodbConfig'
 import express, { Express } from 'express'
 import { AuthRouter } from './infrastructure/routes/auth/authRoute';
@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import path from 'path'
 import { DateTimeUtil } from './infrastructure/utils/DateTimeUtil';
 import cookieParser from 'cookie-parser'
+import cors from 'cors';
 
 class ExpressApp {
     private app: Express;
@@ -32,6 +33,10 @@ class ExpressApp {
     }
 
     private setMiddlewares() {
+        this.app.use(cors({
+            origin: process.env.FRONTEND_URL,
+            credentials: true
+        }))
         this.app.use(express.json())
         this.app.use(cookieParser())
     }
@@ -43,7 +48,7 @@ class ExpressApp {
 
             const accessLogs = createStream((time, index) => {
                 if (!time) return path.join(__dirname, "logs", "accessLogs", "buffer.txt");
-                return path.join(__dirname, "logs", "accessLogs", DateTimeUtil.getFormatedDateTime(new Date()) + index + ".txt" )
+                return path.join(__dirname, "logs", "accessLogs", DateTimeUtil.getFormatedDateTime(new Date()) + index + ".txt")
             }, {
                 interval: '1d',
                 size: "100M",
@@ -51,7 +56,7 @@ class ExpressApp {
 
             const errorLogs = createStream((time, index) => {
                 if (!time) return path.join(__dirname, "logs", "errorLogs", "buffer.txt");
-                return path.join(__dirname, "logs", "errorLogs", DateTimeUtil.getFormatedDateTime(new Date()) + index +".txt")
+                return path.join(__dirname, "logs", "errorLogs", DateTimeUtil.getFormatedDateTime(new Date()) + index + ".txt")
             }, {
                 interval: '1d',
                 size: "100M"
