@@ -1,6 +1,6 @@
 import type { UserEntity } from "@/types/entities/userEntitiy"; 
 import type { IBaseResponse } from "./baseResponse"; 
-export interface UserLoginResponseDTO extends IBaseResponse {
+export interface UserLoginResponse extends IBaseResponse {
     accessToken: string,
     user: Omit<UserEntity, 'password'>
 }
