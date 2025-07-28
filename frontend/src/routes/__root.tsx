@@ -5,10 +5,11 @@ import { useEffect } from "react";
 import { setLanguage } from "@/store/slices/lang/langSlice";
 import i18next from "i18next";
 import { Provider } from 'react-redux'
-import { store } from '@/store/store'
+import { persistor, store } from '@/store/store'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from "@/components/ui/sonner";
-import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { PersistGate } from "redux-persist/integration/react";
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -22,9 +23,12 @@ export default function RootComponent() {
 
     // setting default language on load
     useEffect(() => {
-        const lang = navigator?.language;
-        store.dispatch(setLanguage(lang))
-        i18next.changeLanguage(lang)
+        let lang = store.getState().lang.lang
+        if (!lang) {
+            lang = navigator?.language;
+            store.dispatch(setLanguage(lang))
+            i18next.changeLanguage(lang)
+        }
         document.documentElement.setAttribute('lang', lang)
     }, [])
 
@@ -32,12 +36,14 @@ export default function RootComponent() {
         <>
             <QueryClientProvider client={queryClient}>
                 <Provider store={store}>
-                    <Outlet />
-                    <TanStackRouterDevtools />
-                    <ReactQueryDevtools/>
+                    <PersistGate persistor={persistor} >
+                        <Outlet />
+                        <TanStackRouterDevtools />
+                        <ReactQueryDevtools />
+                    </PersistGate>
                 </Provider>
             </QueryClientProvider>
-            <Toaster position="top-right"/>
+            <Toaster position="top-right" />
         </>
     )
 }
