@@ -14,8 +14,7 @@ export class sendOtpController {
             if (!email) {
                 throw new Error("Email not recieved")
             }
-
-            this.sendOtpUseCase.sendOtp(email);
+            await this.sendOtpUseCase.sendOtp(email);
             res.status(HTTPStatus.OK).json({ message: "OTP send successfully " })
         } catch (error) {
             console.log("Error while sending otp");
