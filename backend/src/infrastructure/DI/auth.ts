@@ -24,8 +24,9 @@ import { OtpService } from "../services/otpService";
 const otpService = new OtpService()
 const otpContentGenerator = new OtpEmailContentGenerator()
 const emailSerivce = new EmailService()
+const userPersistance = new UserPersistance()
 const cacheStorage = new KeyValueTTLCaching()
-const injectedSendOtpUseCase = new sendOtpUseCase(otpService, otpContentGenerator, emailSerivce, cacheStorage)
+const injectedSendOtpUseCase = new sendOtpUseCase(otpService, otpContentGenerator, emailSerivce, cacheStorage, userPersistance)
 export const injectedRegisterSendOtpController = new sendOtpController(injectedSendOtpUseCase)
 
 // Resend Otp controller
@@ -35,7 +36,6 @@ export const injectedResendOtpController = new ResendOtpController(resendOtpUseC
 
 // Create User Controller
 const hashService = new HashService();
-const userPersistance = new UserPersistance()
 const injectedCreateUserUseCase = new CreateUserUseCase(userPersistance, hashService)
 
 const injectedVerifyOtpUseCase = new VerifyOtpUseCase(cacheStorage)
