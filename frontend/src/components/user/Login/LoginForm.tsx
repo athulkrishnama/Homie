@@ -11,6 +11,7 @@ import { useUserLoginMutation } from '@/hooks/userApiHook'
 import { toast } from 'sonner'
 import { useAppDispatch } from '@/hooks/storeHook'
 import { setToken } from '@/store/slices/user/tokenSlice'
+import { setUser } from '@/store/slices/user/userDataSlice'
 
 const errorStyle = 'border-red-500 focus-visible:border-red-500 shadow-red-500 outline-red-500 border-r-red-500 focus-visible:ring-0';
 const inputAnimation = {
@@ -45,7 +46,9 @@ function LoginForm() {
     const onSubmit: SubmitHandler<loginFormFields> = (data: loginFormFields) => {
         mutate(data, {
             onSuccess: (data) => {
+                dispatch(setUser(data.user))
                 dispatch(setToken(data.accessToken));
+                navigate({ to: '/user', replace: true })
                 toast.success(data.message);
             },
             onError: (err) => {
