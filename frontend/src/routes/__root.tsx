@@ -7,6 +7,8 @@ import i18next from "i18next";
 import { Provider } from 'react-redux'
 import { store } from '@/store/store'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Toaster } from "@/components/ui/sonner";
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -32,8 +34,10 @@ export default function RootComponent() {
                 <Provider store={store}>
                     <Outlet />
                     <TanStackRouterDevtools />
+                    <ReactQueryDevtools/>
                 </Provider>
             </QueryClientProvider>
+            <Toaster position="top-right"/>
         </>
     )
 }
