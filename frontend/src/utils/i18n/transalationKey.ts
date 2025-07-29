@@ -64,5 +64,13 @@ export default {
                 }
             }
         }
+    },
+    adminLogin: {
+        form: {
+            lables: {
+                adminLogin: "adminLogin.form.lables.adminLogin",
+            },
+
+        }
     }
 }

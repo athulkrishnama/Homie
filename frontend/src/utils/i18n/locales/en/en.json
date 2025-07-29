@@ -64,5 +64,12 @@
                 }
             }
         }
+    },
+    "adminLogin": {
+        "form": {
+            "lables": {
+                "adminLogin": "Admin Login"
+            }
+        }
     }
 }
