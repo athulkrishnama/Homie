@@ -8,7 +8,9 @@ export default {
         submiting: "button.submiting",
         verify: "button.verify",
         verifying: "button.verifying",
-        cancel: "button.cancel"
+        cancel: "button.cancel",
+        login:"button.login",
+        logout:"button.logout"
     },
     userlogin: {
         form: {

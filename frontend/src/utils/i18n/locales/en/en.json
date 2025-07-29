@@ -8,7 +8,9 @@
         "submiting": "Submitting",
         "verify": "Verify",
         "verifying": "Verifying",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "login":"Login",
+        "logout":"Logout"
     },
     "userlogin": {
         "form": {
