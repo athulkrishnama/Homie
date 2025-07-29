@@ -1,3 +1,3 @@
-import type { UserEntity } from "@/types/entities/userEntitiy" 
+import type { UserEntity } from "@/types/entities/userEntitiy"
 
-export type userLoginDTO = Pick<UserEntity, 'email' | 'password'>
+export type userLoginRequestType = Pick<UserEntity, 'email' | 'password'>
