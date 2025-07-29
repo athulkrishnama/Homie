@@ -9,7 +9,7 @@ import { isAuthenticated } from '@/utils/auth'
 export const Route = createFileRoute('/user/login')({
   component: RouteComponent,
   beforeLoad:()=>{
-    if(!isAuthenticated()){
+    if(isAuthenticated()){
       throw redirect({to:"/user", replace:true})
     }
   }
