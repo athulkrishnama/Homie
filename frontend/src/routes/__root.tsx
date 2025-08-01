@@ -10,6 +10,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from "@/components/ui/sonner";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { PersistGate } from "redux-persist/integration/react";
+import { Languages } from "@/types/language";
+import type { Langtype } from "@/types/language";
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -23,9 +25,12 @@ export default function RootComponent() {
 
     // setting default language on load
     useEffect(() => {
-        let lang = store.getState().lang.lang
+        let lang: Langtype = store.getState().lang.lang
         if (!lang) {
-            lang = navigator?.language;
+            lang = navigator?.language.slice(0, 2) as Langtype;
+            if (!Languages.includes(lang as Langtype)) {
+                lang = Languages[0]
+            }
             store.dispatch(setLanguage(lang))
         }
         i18next.changeLanguage(lang)
