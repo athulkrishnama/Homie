@@ -1,9 +1,9 @@
 import { loginUserDTO } from "../../domain/interfaces/DTOs/userDTOs/loginUserDTO";
 import { IUserPersistance } from "../../domain/interfaces/respository/persistentStorage/IUserPersistance";
 import { IHashService } from "../../domain/interfaces/service/IHashService";
-import { IUserLogin } from "../../domain/interfaces/useCase/auth/IUserLogin";
+import { IUserLoginUseCase } from "../../domain/interfaces/useCase/auth/IUserLogin";
 
-export class UserLoginUseCase implements IUserLogin {
+export class UserLoginUseCase implements IUserLoginUseCase {
     private userPersistance;
     private hashService;
 

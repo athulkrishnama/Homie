@@ -1,9 +1,9 @@
 import { adminLoginDTO } from "../../domain/interfaces/DTOs/adminDTO/adminLoginDTO";
 import { IUserPersistance } from "../../domain/interfaces/respository/persistentStorage/IUserPersistance";
 import { IHashService } from "../../domain/interfaces/service/IHashService";
-import { IAdminLogin } from "../../domain/interfaces/useCase/auth/IAdminLogin";
+import { IAdminLoginUseCase } from "../../domain/interfaces/useCase/auth/IAdminLogin";
 
-export class AdminLoginUseCase implements IAdminLogin {
+export class AdminLoginUseCase implements IAdminLoginUseCase {
     constructor(private userPersistance: IUserPersistance, private hashService: IHashService) {
 
     }
