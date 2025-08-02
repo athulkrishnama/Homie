@@ -16,6 +16,7 @@ import { JWTService } from "../services/JWTService";
 import { OtpService } from "../services/otpService";
 
 import { AuthController } from "../../interfaceAdapters/controllers/authController";
+import { ForgetPasswordUseCase } from "../../useCases/auth/forgetPasswordSendOtp";
 
 // Create User Send Otp Controller
 const otpService = new OtpService()
@@ -44,4 +45,15 @@ const cacheUserUseCase = new CacheUserUseCase(cacheStorage)
 
 const adminLoginUseCase = new AdminLoginUseCase(userPersistance, hashService);
 
-export const injectedAuthController = new AuthController(adminLoginUseCase, tokenCreationUseCase, userLoginUseCase, cacheUserUseCase, verifyOtpUseCase, createUserUseCase, resendOtpUseCase, sendOtpUseCase)
+const forgetPasswordUseCase = new ForgetPasswordUseCase(userPersistance, otpService, emailSerivce, cacheStorage)
+
+export const injectedAuthController = new AuthController(
+    adminLoginUseCase,
+    tokenCreationUseCase,
+    userLoginUseCase,
+    cacheUserUseCase,
+    verifyOtpUseCase,
+    createUserUseCase,
+    resendOtpUseCase,
+    sendOtpUseCase,
+    forgetPasswordUseCase)
