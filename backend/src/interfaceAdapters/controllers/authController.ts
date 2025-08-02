@@ -8,6 +8,7 @@ import { IVerifyOtpUseCase } from "../../domain/interfaces/useCase/auth/IVerifyO
 import { ICreateUserUseCase } from "../../domain/interfaces/useCase/auth/ICreateUser";
 import { IResendOtpUseCase } from "../../domain/interfaces/useCase/auth/IResendOtp";
 import { IsendOtpUseCase } from "../../domain/interfaces/useCase/auth/ISendOtp";
+import { IForgetPasswordSendOtpUseCase } from "../../domain/interfaces/useCase/auth/IForgetPasswordSendOtp";
 
 export class AuthController {
     constructor(
@@ -18,7 +19,8 @@ export class AuthController {
         private _verifyOtpUseCase: IVerifyOtpUseCase,
         private _createUserUseCase: ICreateUserUseCase,
         private _resendOtpUseCase: IResendOtpUseCase,
-        private _sendOtpUseCase: IsendOtpUseCase) {
+        private _sendOtpUseCase: IsendOtpUseCase,
+        private _forgetPasswordSendOtpUseCase: IForgetPasswordSendOtpUseCase) {
 
     }
 
@@ -121,6 +123,18 @@ export class AuthController {
             }
             await this._sendOtpUseCase.sendOtp(email);
             res.status(HTTPStatus.OK).json({ message: "OTP send successfully " })
+        } catch (error) {
+            console.log("Error while sending otp");
+            res.status(HTTPStatus.BAD_REQUEST).json({ message: "Error while sending otp", error: error instanceof Error ? error.message : "otp Error" })
+        }
+    }
+
+    async handleForgetPasswordSendOtp(req: Request, res: Response) {
+        try {
+            const {email} = req.body;
+            await this._forgetPasswordSendOtpUseCase.sendOtp(email);
+            res.status(HTTPStatus.OK).json({message:"Otp Send Successfully"})
+
         } catch (error) {
             console.log("Error while sending otp");
             res.status(HTTPStatus.BAD_REQUEST).json({ message: "Error while sending otp", error: error instanceof Error ? error.message : "otp Error" })
