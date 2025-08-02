@@ -27,7 +27,7 @@ export class CreateUserUseCase implements ICreateUserUseCase {
         }
         user.password = hashedPassword;
 
-        const newUser = await this.userPersistance.createUser(user);
+        const newUser = await this.userPersistance.create(user);
 
         if (!newUser) {
             throw new Error("Error while creating new user")

@@ -17,12 +17,13 @@ import { OtpService } from "../services/otpService";
 
 import { AuthController } from "../../interfaceAdapters/controllers/authController";
 import { ForgetPasswordUseCase } from "../../useCases/auth/forgetPasswordSendOtp";
+import { UserModel } from "../persistantStorage/mongodb/models/userModel";
 
 // Create User Send Otp Controller
 const otpService = new OtpService()
 const otpContentGenerator = new OtpEmailContentGenerator()
 const emailSerivce = new EmailService()
-const userPersistance = new UserPersistance()
+const userPersistance = new UserPersistance(UserModel)
 const cacheStorage = new KeyValueTTLCaching()
 const sendOtpUseCase = new SendOtpUseCase(otpService, otpContentGenerator, emailSerivce, cacheStorage, userPersistance)
 
