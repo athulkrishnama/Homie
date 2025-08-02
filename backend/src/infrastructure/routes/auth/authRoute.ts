@@ -27,6 +27,10 @@ export class AuthRouter {
         this.router.post("/adminLogin", (req: Request, res: Response) => {
             injectedAuthController.handleAdminLogin(req, res);
         })
+
+        this.router.post("/forget", (req:Request, res:Response)=>{
+            injectedAuthController.handleForgetPasswordSendOtp(req, res)
+        })
     }
 
     public getRouter() {
