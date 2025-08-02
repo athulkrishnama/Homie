@@ -1,5 +1,5 @@
 import { loginUserDTO } from "../../DTOs/userDTOs/loginUserDTO";
 
-export interface IUserLogin {
+export interface IUserLoginUseCase {
     userLogin(email: string, password: string): Promise<loginUserDTO>
 }

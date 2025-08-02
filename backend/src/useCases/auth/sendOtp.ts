@@ -6,7 +6,7 @@ import { IEmailService } from "../../domain/interfaces/service/IEmailService";
 import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorage/IKeyValueTTLCaching";
 import { IUserPersistance } from "../../domain/interfaces/respository/persistentStorage/IUserPersistance";
 
-export class sendOtpUseCase implements IsendOtpUseCase {
+export class SendOtpUseCase implements IsendOtpUseCase {
     private otpService: IOtpService;
     private otpTemplateGenerator: IOtpEmailContentGenerator
     private emailService: IEmailService
