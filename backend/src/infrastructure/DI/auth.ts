@@ -18,6 +18,7 @@ import { OtpService } from "../services/otpService";
 import { AuthController } from "../../interfaceAdapters/controllers/authController";
 import { ForgetPasswordUseCase } from "../../useCases/auth/forgetPasswordSendOtp";
 import { UserModel } from "../persistantStorage/mongodb/models/userModel";
+import { ForgetPasswordOTPEmailContentGenerator } from "../services/emailContentGenerator/forgetPasswordOTPEmailContentGenerator";
 
 // Create User Send Otp Controller
 const otpService = new OtpService()
@@ -46,7 +47,8 @@ const cacheUserUseCase = new CacheUserUseCase(cacheStorage)
 
 const adminLoginUseCase = new AdminLoginUseCase(userPersistance, hashService);
 
-const forgetPasswordUseCase = new ForgetPasswordUseCase(userPersistance, otpService, emailSerivce, cacheStorage)
+const forgetOtpContentGenerator = new ForgetPasswordOTPEmailContentGenerator()
+const forgetPasswordUseCase = new ForgetPasswordUseCase(userPersistance, otpService, emailSerivce, cacheStorage, forgetOtpContentGenerator);
 
 export const injectedAuthController = new AuthController(
     adminLoginUseCase,
