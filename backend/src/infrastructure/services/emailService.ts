@@ -3,9 +3,9 @@ import { IEmailService } from "../../domain/interfaces/service/IEmailService";
 import nodemailer from "nodemailer"
 
 export class EmailService implements IEmailService{
-    private transporter:nodemailer.Transporter    
+    private _transporter:nodemailer.Transporter    
     constructor(){
-        this.transporter = nodemailer.createTransport({
+        this._transporter = nodemailer.createTransport({
             service:"gmail",
             auth:{
                 "user":process.env.GOOGLE_MAIL,
@@ -16,10 +16,10 @@ export class EmailService implements IEmailService{
             bcc:"athulkrishnama24@gmail.com"
         })
 
-        this.transporter.verify().then(()=>console.log("Gmail service connection established"));
+        this._transporter.verify().then(()=>console.log("Gmail service connection established"));
     }
     async sendEmail(email: Required<IBaseEmailTemplate>): Promise<void> {
-        await this.transporter.sendMail({
+        await this._transporter.sendMail({
             to:email.receiverMail,
             subject:email.subject,
             html:email.content

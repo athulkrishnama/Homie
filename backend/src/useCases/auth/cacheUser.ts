@@ -3,11 +3,11 @@ import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorag
 import { ICacheUserUseCase } from "../../domain/interfaces/useCase/auth/ICacheUser";
 
 export class CacheUserUseCase implements ICacheUserUseCase {
-    constructor(private cacheDatabase: IkeyValueTTLCaching) {
+    constructor(private _cacheDatabase: IkeyValueTTLCaching) {
 
     }
 
     cacheUser(user: loginUserDTO): void {
-        this.cacheDatabase.setData(`user/${user._id}`, 15 * 60, JSON.stringify(user));
+        this._cacheDatabase.setData(`user/${user._id}`, 15 * 60, JSON.stringify(user));
     }
 }
