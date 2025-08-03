@@ -5,29 +5,29 @@ import { IHashService } from "../../domain/interfaces/service/IHashService";
 import { ICreateUserUseCase } from "../../domain/interfaces/useCase/auth/ICreateUser";
 
 export class CreateUserUseCase implements ICreateUserUseCase {
-    private userPersistance: IUserPersistance;
-    private hashService: IHashService
+    private _userPersistance: IUserPersistance;
+    private _hashService: IHashService
 
     constructor(userPersistance: IUserPersistance, hashService: IHashService) {
-        this.userPersistance = userPersistance;
-        this.hashService = hashService
+        this._userPersistance = userPersistance;
+        this._hashService = hashService
     }
 
     async createUser(user: userEntity): Promise<createUserDTO> {
-        const existingUser: userEntity | null = await this.userPersistance.findByEmail(user.email);
+        const existingUser: userEntity | null = await this._userPersistance.findByEmail(user.email);
 
         if (existingUser) {
             throw new Error("User with same email already exists")
         }
 
-        const hashedPassword = await this.hashService.hash(user.password);
+        const hashedPassword = await this._hashService.hash(user.password);
 
         if (!user.password) {
             throw new Error("Password is required")
         }
         user.password = hashedPassword;
 
-        const newUser = await this.userPersistance.create(user);
+        const newUser = await this._userPersistance.create(user);
 
         if (!newUser) {
             throw new Error("Error while creating new user")

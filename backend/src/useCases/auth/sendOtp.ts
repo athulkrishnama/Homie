@@ -7,27 +7,27 @@ import { IkeyValueTTLCaching } from "../../domain/interfaces/service/cacheStorag
 import { IUserPersistance } from "../../domain/interfaces/respository/persistentStorage/IUserPersistance";
 
 export class SendOtpUseCase implements IsendOtpUseCase {
-    private otpService: IOtpService;
-    private otpTemplateGenerator: IOtpEmailContentGenerator
-    private emailService: IEmailService
-    private cacheStorage: IkeyValueTTLCaching
-    private userPersistance: IUserPersistance;
+    private _otpService: IOtpService;
+    private _otpTemplateGenerator: IOtpEmailContentGenerator
+    private _emailService: IEmailService
+    private _cacheStorage: IkeyValueTTLCaching
+    private _userPersistance: IUserPersistance;
 
     constructor(otpService: IOtpService, otpTemplateGenerator: IOtpEmailContentGenerator, emailService: IEmailService, cacheStorage: IkeyValueTTLCaching, userPersistance:IUserPersistance) {
-        this.otpService = otpService;
-        this.otpTemplateGenerator = otpTemplateGenerator
-        this.cacheStorage = cacheStorage;
-        this.emailService = emailService;
-        this.userPersistance = userPersistance;
+        this._otpService = otpService;
+        this._otpTemplateGenerator = otpTemplateGenerator
+        this._cacheStorage = cacheStorage;
+        this._emailService = emailService;
+        this._userPersistance = userPersistance;
     }
     async sendOtp(email: string): Promise<void> {
 
-        const existingEmail = await this.userPersistance.findByEmail(email);
+        const existingEmail = await this._userPersistance.findByEmail(email);
         if(existingEmail){
             throw new Error("Email is already used by another user");
         }
 
-        const OTP = this.otpService.generateOtp();
+        const OTP = this._otpService.generateOtp();
 
         const emailTemplate: IOtpEmailTemplate = {
             receiverMail: email,
@@ -35,8 +35,8 @@ export class SendOtpUseCase implements IsendOtpUseCase {
             otp: OTP
         }
 
-        emailTemplate.content = this.otpTemplateGenerator.generateTemplate(OTP);
-        this.emailService.sendEmail(emailTemplate as Required<IOtpEmailTemplate>)
-        this.cacheStorage.setData(`otp/${email}`, 2 * 60, OTP)
+        emailTemplate.content = this._otpTemplateGenerator.generateTemplate(OTP);
+        this._emailService.sendEmail(emailTemplate as Required<IOtpEmailTemplate>)
+        this._cacheStorage.setData(`otp/${email}`, 2 * 60, OTP)
     }
 }

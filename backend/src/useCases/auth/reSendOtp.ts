@@ -6,23 +6,27 @@ import { IOtpService } from "../../domain/interfaces/service/IOtp";
 import { IResendOtpUseCase } from "../../domain/interfaces/useCase/auth/IResendOtp";
 
 export class ResendOtpUseCase implements IResendOtpUseCase {
-    constructor(private otpService: IOtpService, private otpmailContentGenerator: IOtpEmailContentGenerator, private emailSerivce: IEmailService, private cacheDatabase: IkeyValueTTLCaching) {
+    constructor(
+        private _otpService: IOtpService,
+        private _otpmailContentGenerator: IOtpEmailContentGenerator,
+        private _emailSerivce: IEmailService,
+        private _cacheDatabase: IkeyValueTTLCaching) {
 
     }
 
-    async resendOtp(email:string): Promise<void> {
-        const OTP = this.otpService.generateOtp();
+    async resendOtp(email: string): Promise<void> {
+        const OTP = this._otpService.generateOtp();
 
-        const emailTemplate:IOtpEmailTemplate = {
-            receiverMail:email,
-            otp:OTP,
-            subject:"Resend OTP",
+        const emailTemplate: IOtpEmailTemplate = {
+            receiverMail: email,
+            otp: OTP,
+            subject: "Resend OTP",
         }
 
-        const content = this.otpmailContentGenerator.generateTemplate(OTP);
+        const content = this._otpmailContentGenerator.generateTemplate(OTP);
 
         emailTemplate.content = content;
-        this.emailSerivce.sendEmail(emailTemplate as Required<IOtpEmailTemplate>)
-        this.cacheDatabase.setData(`otp/${email}`, 5 * 60, OTP)
+        this._emailSerivce.sendEmail(emailTemplate as Required<IOtpEmailTemplate>)
+        this._cacheDatabase.setData(`otp/${email}`, 5 * 60, OTP)
     }
 }

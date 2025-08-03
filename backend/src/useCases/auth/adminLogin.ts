@@ -4,17 +4,17 @@ import { IHashService } from "../../domain/interfaces/service/IHashService";
 import { IAdminLoginUseCase } from "../../domain/interfaces/useCase/auth/IAdminLogin";
 
 export class AdminLoginUseCase implements IAdminLoginUseCase {
-    constructor(private userPersistance: IUserPersistance, private hashService: IHashService) {
+    constructor(private _userPersistance: IUserPersistance, private _hashService: IHashService) {
 
     }
 
     async adminLogin(email: string, password: string): Promise<adminLoginDTO> {
-        const admin = await this.userPersistance.findByEmail(email);
+        const admin = await this._userPersistance.findByEmail(email);
         if (!admin) {
             throw new Error('Admin not found');
         }
 
-        const passwordMatch = await this.hashService.compare(password, admin.password);
+        const passwordMatch = await this._hashService.compare(password, admin.password);
 
         if (!passwordMatch) {
             throw new Error("Password not matching");

@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 import { MongodbConnect } from './config/mongodbConfig'
 import express, { Express } from 'express'
-import { AuthRouter } from './infrastructure/routes/auth/authRoute';
+import { Auth_router } from './infrastructure/routes/auth/authRoute';
 import { createStream } from 'rotating-file-stream'
 import morgan from 'morgan';
 import path from 'path'
@@ -10,19 +10,19 @@ import { DateTimeUtil } from './infrastructure/utils/DateTimeUtil';
 import cookieParser from 'cookie-parser'
 import cors from 'cors';
 
-class ExpressApp {
-    private app: Express;
+class Express_app {
+    private _app: Express;
     constructor() {
-        this.app = express();
+        this._app = express();
         MongodbConnect.connect();
-        this.setLoggingMiddleware()
-        this.setMiddlewares()
-        this.setAuthRouter()
+        this._setLoggingMiddleware()
+        this._setMiddlewares()
+        this._setAuthRouter()
     }
 
     listen() {
         const PORT = process.env.PORT ?? 3000;
-        this.app.listen(PORT, (err) => {
+        this._app.listen(PORT, (err) => {
             if (err) {
                 console.log("Error while starting server");
                 throw err;
@@ -32,18 +32,18 @@ class ExpressApp {
         })
     }
 
-    private setMiddlewares() {
-        this.app.use(cors({
+    private _setMiddlewares() {
+        this._app.use(cors({
             origin: process.env.FRONTEND_URL,
             credentials: true
         }))
-        this.app.use(express.json())
-        this.app.use(cookieParser())
+        this._app.use(express.json())
+        this._app.use(cookieParser())
     }
 
-    private setLoggingMiddleware() {
+    private _setLoggingMiddleware() {
         if (process.env.NODE_ENV === 'development') {
-            this.app.use(morgan('combined'))
+            this._app.use(morgan('combined'))
         } else if (process.env.NODE_ENV === 'production') {
 
             const accessLogs = createStream((time, index) => {
@@ -63,18 +63,18 @@ class ExpressApp {
             })
 
             // accesslogs middleware
-            this.app.use(morgan('combined', { stream: accessLogs }))
+            this._app.use(morgan('combined', { stream: accessLogs }))
 
             // error logs (skips if statuscode is less than 400)
-            this.app.use(morgan('combined', { stream: errorLogs, skip: (req, res) => res.statusCode < 400 }))
+            this._app.use(morgan('combined', { stream: errorLogs, skip: (req, res) => res.statusCode < 400 }))
         }
     }
 
-    private setAuthRouter() {
-        this.app.use("/auth", new AuthRouter().getRouter())
+    private _setAuthRouter() {
+        this._app.use("/auth", new Auth_router().get_router())
     }
 }
 
-const app = new ExpressApp();
-app.listen()
+const _app = new Express_app();
+_app.listen()
 

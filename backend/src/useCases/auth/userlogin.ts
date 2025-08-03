@@ -4,17 +4,17 @@ import { IHashService } from "../../domain/interfaces/service/IHashService";
 import { IUserLoginUseCase } from "../../domain/interfaces/useCase/auth/IUserLogin";
 
 export class UserLoginUseCase implements IUserLoginUseCase {
-    private userPersistance;
-    private hashService;
+    private _userPersistance;
+    private _hashService;
 
     constructor(userPersistance: IUserPersistance, hashService: IHashService) {
-        this.userPersistance = userPersistance;
-        this.hashService = hashService;
+        this._userPersistance = userPersistance;
+        this._hashService = hashService;
     }
 
     async userLogin(email: string, password: string): Promise<loginUserDTO> {
 
-        const user = await this.userPersistance.findByEmail(email);
+        const user = await this._userPersistance.findByEmail(email);
 
         if (!user) {
             throw new Error("User not found");
@@ -24,7 +24,7 @@ export class UserLoginUseCase implements IUserLoginUseCase {
             throw new Error("User is blocked by admin");
         }
 
-        const verifyPassword = await this.hashService.compare(password, user.password);
+        const verifyPassword = await this._hashService.compare(password, user.password);
 
         if (!verifyPassword) {
             throw new Error("Invalid Password");
