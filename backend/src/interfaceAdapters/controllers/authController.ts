@@ -9,6 +9,7 @@ import { ICreateUserUseCase } from "../../domain/interfaces/useCase/auth/ICreate
 import { IResendOtpUseCase } from "../../domain/interfaces/useCase/auth/IResendOtp";
 import { IsendOtpUseCase } from "../../domain/interfaces/useCase/auth/ISendOtp";
 import { IForgetPasswordSendOtpUseCase } from "../../domain/interfaces/useCase/auth/IForgetPasswordSendOtp";
+import { IForgetPasswordVerifyOtpUseCase } from "../../domain/interfaces/useCase/auth/ IForgetPasswordVerifyOtp";
 
 export class AuthController {
     constructor(
@@ -20,7 +21,8 @@ export class AuthController {
         private _createUserUseCase: ICreateUserUseCase,
         private _resendOtpUseCase: IResendOtpUseCase,
         private _sendOtpUseCase: IsendOtpUseCase,
-        private _forgetPasswordSendOtpUseCase: IForgetPasswordSendOtpUseCase) {
+        private _forgetPasswordSendOtpUseCase: IForgetPasswordSendOtpUseCase,
+        private _forgetPasswordVerifyOtpUseCase: IForgetPasswordVerifyOtpUseCase) {
 
     }
 
@@ -131,9 +133,9 @@ export class AuthController {
 
     async handleForgetPasswordSendOtp(req: Request, res: Response) {
         try {
-            const {email} = req.body;
+            const { email } = req.body;
             await this._forgetPasswordSendOtpUseCase.sendOtp(email);
-            res.status(HTTPStatus.OK).json({message:"Otp Send Successfully"})
+            res.status(HTTPStatus.OK).json({ message: "Otp Send Successfully" })
 
         } catch (error) {
             console.log("Error while sending otp");
@@ -141,4 +143,20 @@ export class AuthController {
         }
     }
 
+    async handleForgetPasswordVerifyOtp(req: Request, res: Response) {
+        try {
+            const {email, newPassword, otp} = req.body;
+
+            if(!email || !newPassword || !otp){
+                res.status(HTTPStatus.BAD_REQUEST).json({message:"Required data missing", error:"Email and password is required"});
+            }
+
+            await this._forgetPasswordVerifyOtpUseCase.verifyOtp(email, otp, newPassword);
+            
+            res.status(HTTPStatus.OK).json({message:"Password updated successfully"})
+        } catch (error) {
+            console.log(error);
+            res.status(HTTPStatus.BAD_REQUEST).json({ message: "Error while verify OTP", error: error instanceof Error ? error.message : "OTP verifing error" });
+        }
+    }
 }
