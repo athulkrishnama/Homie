@@ -16,7 +16,10 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
         }
         const otpVerified = otp === cachecdOtp;
 
-            await this.cacheStorage.deleteData(`otp/${email}`);
+        if(!otpVerified){
+            throw new Error("Otp not matching")
+        }
+        await this.cacheStorage.deleteData(`otp/${email}`);
 
 
         return otpVerified;
