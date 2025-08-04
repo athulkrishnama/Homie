@@ -14,8 +14,8 @@ export class AuthRouter {
             injectedAuthController.handleSendOtp(req, res);
         })
 
-        this.router.post('/resendOtp', (req:Request, res:Response)=>{
-            injectedAuthController.handleResendOtp(req,res)
+        this.router.post('/resendOtp', (req: Request, res: Response) => {
+            injectedAuthController.handleResendOtp(req, res)
         })
 
         this.router.post('/verify', (req: Request, res: Response) => {
@@ -30,9 +30,13 @@ export class AuthRouter {
             injectedAuthController.handleAdminLogin(req, res);
         })
 
-        this.router.post("/forget", (req:Request, res:Response)=>{
+        this.router.post("/forget", (req: Request, res: Response) => {
             injectedAuthController.handleForgetPasswordSendOtp(req, res)
 
+        })
+
+        this.router.post("/verifyForgetPassword", (req: Request, res: Response) => {
+            injectedAuthController.handleForgetPasswordVerifyOtp(req, res)
         })
     }
 
