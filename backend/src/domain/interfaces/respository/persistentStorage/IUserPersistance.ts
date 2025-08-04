@@ -3,4 +3,5 @@ import { IBasePersistance } from "./IBasePersistance";
 
 export interface IUserPersistance extends IBasePersistance<userEntity> {
     findByEmail(email: string): Promise<userEntity | null>
+    findByEmailAndUpdatePassword(email:string, newPassword:string): Promise<void>
 }
