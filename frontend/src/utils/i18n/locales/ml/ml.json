@@ -18,7 +18,8 @@
         "email": "ഇമെയിൽ",
         "password": "പാസ്‌വേഡ്",
         "register": "രജിസ്റ്റർ ചെയ്യുക",
-        "login": "ലോഗിൻ"
+        "login": "ലോഗിൻ",
+        "forgetPassword": "പാസ്‌വേഡ് മറന്നോ?"
       },
       "validations": {
         "email": {
@@ -73,5 +74,29 @@
         "adminLogin": "അഡ്മിൻ ലോഗിൻ"
       }
     }
+  },
+  "form": {
+    "label": {
+      "email": "ഇമെയിൽ",
+      "password": "പാസ്‌വേഡ്",
+      "confirmPassword": "പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക"
+    },
+    "errors": {
+      "invalidMail": "അസാധുവായ ഇമെയിൽ",
+      "passwordRequired": "പാസ്‌വേഡ് ആവശ്യമാണ്",
+      "passwordMinLength": "കുറഞ്ഞത് {{count}} അക്ഷരങ്ങൾ ആവശ്യമാണ്",
+      "passwordMaxLength": "പരമാവധി {{count}} അക്ഷരങ്ങൾ അനുവദനീയമാണ്",
+      "confirmPasswordRequired": "പാസ്‌വേഡ് സ്ഥിരീകരിക്കൽ ആവശ്യമാണ്",
+      "passwordNotMatching": "പാസ്‌വേഡും സ്ഥിരീകരിച്ച പാസ്‌വേഡും പൊരുത്തപ്പെടുന്നില്ല"
+    },
+    "button": {
+      "sendOtp": "OTP അയയ്ക്കുക",
+      "sendingOtp": "OTP അയയ്ക്കുന്നു",
+      "submit": "സമർപ്പിക്കുക",
+      "submitting": "സമർപ്പിക്കുന്നു"
+    }
+  },
+  "heading": {
+    "forgetPassword": "പാസ്‌വേഡ് മറന്നോ"
   }
 }

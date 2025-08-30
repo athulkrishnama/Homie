@@ -1,0 +1,102 @@
+{
+  "brand": {
+    "name": "होमी"
+  },
+  "button": {
+    "save": "सहेजें",
+    "submit": "जमा करें",
+    "submiting": "जमा किया जा रहा है",
+    "verify": "सत्यापित करें",
+    "verifying": "सत्यापन किया जा रहा है",
+    "cancel": "रद्द करें",
+    "login": "लॉगिन करें",
+    "logout": "लॉगआउट करें"
+  },
+  "userlogin": {
+    "form": {
+      "labels": {
+        "email": "ईमेल",
+        "password": "पासवर्ड",
+        "register": "रजिस्टर करें",
+        "login": "लॉगिन",
+        "forgetPassword": "पासवर्ड भूल गए?"
+      },
+      "validations": {
+        "email": {
+          "required": "ईमेल आवश्यक है",
+          "invalid": "अमान्य ईमेल"
+        },
+        "password": {
+          "required": "पासवर्ड आवश्यक है",
+          "min": "न्यूनतम {{count}} अक्षर आवश्यक हैं",
+          "max": "अधिकतम {{count}} अक्षरों की अनुमति है"
+        }
+      }
+    }
+  },
+  "usersignup": {
+    "form": {
+      "lables": {
+        "signup": "साइन अप करें",
+        "fullname": "पूरा नाम",
+        "email": "ईमेल",
+        "password": "पासवर्ड",
+        "confirmPassword": "पासवर्ड की पुष्टि करें",
+        "enterotp": "अपना OTP दर्ज करें",
+        "otpsentto": "{{email}} पर OTP भेजा गया है",
+        "resentOtp": "OTP पुनः भेजें",
+        "alreadyHaveAccount": "पहले से ही खाता है?"
+      },
+      "validations": {
+        "fullname": {
+          "required": "पूरा नाम आवश्यक है",
+          "min": "न्यूनतम {{count}} अक्षर आवश्यक हैं",
+          "max": "अधिकतम {{count}} अक्षरों की अनुमति है"
+        },
+        "email": {
+          "required": "ईमेल आवश्यक है",
+          "invalid": "अमान्य ईमेल"
+        },
+        "password": {
+          "required": "पासवर्ड आवश्यक है",
+          "invalid": "पासवर्ड में कम से कम एक छोटा अक्षर, एक बड़ा अक्षर, एक संख्या, एक विशेष चिह्न होना चाहिए और कम से कम 8 अक्षर लंबा होना चाहिए"
+        },
+        "confirmPassword": {
+          "required": "पासवर्ड की पुष्टि आवश्यक है",
+          "notsame": "पासवर्ड और पुष्टिकृत पासवर्ड मेल नहीं खाते"
+        }
+      }
+    }
+  },
+  "adminLogin": {
+    "form": {
+      "lables": {
+        "adminLogin": "एडमिन लॉगिन"
+      }
+    }
+  },
+  "form": {
+    "label": {
+      "email": "ईमेल",
+      "password": "पासवर्ड",
+      "confirmPassword": "पासवर्ड की पुष्टि करें"
+    },
+    "errors": {
+      "invalidMail": "अमान्य ईमेल",
+      "passwordRequired": "पासवर्ड आवश्यक है",
+      "passwordMinLength": "कम से कम {{count}} अक्षर आवश्यक हैं",
+      "passwordMaxLength": "अधिकतम {{count}} अक्षरों की अनुमति है",
+      "confirmPasswordRequired": "पासवर्ड की पुष्टि आवश्यक है",
+      "passwordNotMatching": "पासवर्ड और पुष्टिकृत पासवर्ड मेल नहीं खाते"
+    },
+    "button": {
+      "sendOtp": "OTP भेजें",
+      "sendingOtp": "OTP भेजा जा रहा है",
+      "submit": "जमा करें",
+      "submitting": "जमा किया जा रहा है"
+    }
+  },
+  "heading": {
+    "forgetPassword": "पासवर्ड भूल गए?"
+  }
+}
