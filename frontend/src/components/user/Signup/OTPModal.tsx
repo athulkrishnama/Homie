@@ -1,9 +1,11 @@
 import Modal from '@/components/shared/modal/Modal'
+// import OTP from '@/components/shared/otp/Otp'
+import OTP from '@/components/shared/otp/OTP'
 import { Button } from '@/components/ui/button'
 import { useUserSignupResendOtpMutation } from '@/hooks/userApiHook'
 import transalationKey from '@/utils/i18n/transalationKey'
-import { t } from 'i18next'
-import React, { useEffect, useRef, useState, type ChangeEvent, type Dispatch, type SetStateAction } from 'react'
+import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 interface OTPModalProps {
@@ -15,10 +17,13 @@ interface OTPModalProps {
 
 
 function OTPModal({ isOpen, setIsOpen, email, onSubmit }: OTPModalProps) {
-  const rootRef = useRef<(HTMLInputElement | null)[]>([]);
+
+  const { t } = useTranslation()
   const intervalRef = useRef<NodeJS.Timeout>(null);
   const [time, setTime] = useState(2 * 60);
   const { mutate } = useUserSignupResendOtpMutation()
+
+  const rootRef = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleSubmit = () => {
     const index = rootRef.current.findIndex((ref) => {
@@ -53,46 +58,6 @@ function OTPModal({ isOpen, setIsOpen, email, onSubmit }: OTPModalProps) {
     })
   }
 
-  const onData = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    let value = e?.target?.value;
-    const index = Number(e.target.getAttribute('data-index'));
-
-    if (+value > 9) {
-      value = (+value % 10) + '';
-      e.target.value = value;
-    }
-
-    if (index === rootRef.current.length - 1) {
-      handleSubmit()
-    } else if (value !== '' && +value >= 0) {
-      rootRef.current[index + 1]?.focus()
-    }
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    if (e.key === "Backspace") {
-      if (e.target instanceof HTMLInputElement) {
-        const index = Number(e.target.getAttribute('data-index'))
-        e.target.value = ''
-        rootRef.current[index - 1]?.focus()
-      }
-    }
-  }
-
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const data = e.clipboardData.getData('text/plain');
-    if (!isNaN(+data)) {
-      rootRef.current.forEach((ref, i) => {
-        if (ref) {
-          ref.value = data[i]
-        }
-      })
-    }
-  }
-
   useEffect(() => {
     if (isOpen) {
       if (!intervalRef.current) {
@@ -120,28 +85,12 @@ function OTPModal({ isOpen, setIsOpen, email, onSubmit }: OTPModalProps) {
   }, [isOpen])
 
   return (
-    <Modal open={isOpen} setOpen={setIsOpen}>
+    <Modal open={isOpen} setOpen={setIsOpen} >
+      {/* <OTP email={email} setIsOpen={setIsOpen} isOpen={isOpen} onSubmit={onSubmit} /> */}
       <div className='p-5'>
         <h4 className='text-center text-4xl font-bold upper mb-5'>{t(transalationKey.usersignup.form.lables.enterotp)}</h4>
         <p className='text-center text-gray-500 '>{t(transalationKey.usersignup.form.lables.otpsetdto, { email })}</p>
-
-        {/* otp area */}
-
-        <div className='flex justify-around my-4 '>
-          {
-            Array(6).fill(null).map((_, i) => <input
-              disabled={time === 0}
-              data-index={i}
-              type='number'
-              onChange={onData}
-              onKeyUp={handleKeyDown}
-              onPaste={handlePaste}
-              className='border-2 border-gray-400 h-15 w-15 rounded-xl t remove-arrow focus-visible:shadow-sm text-center text-3xl text-gray-600'
-              ref={(r) => { rootRef.current[i] = r }}
-            />)
-          }
-        </div>
-
+        <OTP rootRef={rootRef} disabled={time <= 0} length={6} onComplete={handleSubmit} />
         <div className='flex justify-between my-3'>
           <p onClick={resendOtp} className='hover:cursor-pointer'>{t(transalationKey.usersignup.form.lables.resentOtp)}</p>
           <p>{`${String(Math.floor(time / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}</p>
