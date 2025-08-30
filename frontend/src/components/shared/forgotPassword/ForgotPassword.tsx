@@ -11,6 +11,7 @@ import { useState } from 'react'
 import OTPAndNewPasswordModal from './OTPAndNewPasswordModal'
 import { useTranslation } from 'react-i18next'
 import transalationKey from '@/utils/i18n/transalationKey'
+import { useRouter } from '@tanstack/react-router'
 
 const errorStyle = 'border-red-500 focus-visible:border-red-500 shadow-red-500 outline-red-500 border-r-red-500 focus-visible:ring-0';
 
@@ -18,11 +19,13 @@ export interface forgetPasswordProps {
     heading: string,
     onOtpRequest(email: string): Promise<boolean>
     onOtpSubmit(email: string, otp: string, password: string): Promise<void>
-    onResendOtp(email: string): void
+    onResendOtp(email: string): void,
 }
 
 function ForgotPassword({ heading, onOtpRequest, onOtpSubmit, onResendOtp }: forgetPasswordProps) {
     const [isOpen, setIsOpen] = useState(false)
+
+    const router = useRouter()
 
     const { t } = useTranslation()
 
@@ -65,6 +68,8 @@ function ForgotPassword({ heading, onOtpRequest, onOtpSubmit, onResendOtp }: for
                                 </motion.div>
                                 <Button className='w-full' >{!isSubmitting ? t(transalationKey.form.button.sendOtp) : t(transalationKey.form.button.sendingOtp)}</Button>
                             </form>
+                            {router.history.canGoBack() && <p onClick={() => router.history.back()} className='my-2 hover:cursor-pointer text-black font-semibold hover:text-gray-700'>{t(transalationKey.button.login)}?</p>}
+
                         </div>
                     </div>
                 </div>
