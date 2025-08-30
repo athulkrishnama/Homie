@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
 
 interface OTPAndNewPasswordModalProps {
   isOpen: boolean
@@ -42,7 +43,7 @@ function OTPAndNewPasswordModal({ isOpen, setIsOpen, email, handlePasswordSubmit
   // password form validation
 
   const passwordFieldSchema = z.object({
-    password: z.string().min(1, { error: t(transalationKey.form.errors.passwordRequired) }).min(8, { error: t(transalationKey.form.errors.passwordMinLength, { count: 8 }) }).max(15, { error: t(transalationKey.form.errors.passwordMaxLength, { count: 15 }) }),
+    password: z.string().min(1, { error: t(transalationKey.form.errors.passwordRequired) }).min(8, { error: t(transalationKey.form.errors.passwordMinLength, { count: 8 }) }).max(15, { error: t(transalationKey.form.errors.passwordMaxLength, { count: 15 }) }).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, { error: t(transalationKey.usersignup.form.validations.password.invalid) }),
     confirmPassword: z.string().min(1, { error: t(transalationKey.form.errors.confirmPasswordRequired) })
   }).refine((data) => data.password === data.confirmPassword, { error: t(transalationKey.form.errors.passwordNotMatching), path: ['confirmPassword'] })
 
@@ -54,13 +55,27 @@ function OTPAndNewPasswordModal({ isOpen, setIsOpen, email, handlePasswordSubmit
   })
 
 
-  const calculateOtp = (): string => {
-    const otp = rootRef.current.reduce((acc: string, elem) => acc + elem?.value, '');
+  const calculateOtp = (): string | null => {
+    let otp = '';
+
+    for (const ref of rootRef.current) {
+      if (isNaN(Number(ref?.value))) {
+        ref?.focus();
+        return null;
+      }
+      otp += ref?.value
+    }
+
+    // const otp = rootRef.current.reduce((acc: string, elem) => acc + elem?.value, '');
     return otp;
   }
 
   const onSubmit = (data: passwordFormType) => {
     const otp = calculateOtp();
+    if (!otp) {
+      toast.error("Enter full otp")
+      return
+    }
     handlePasswordSubmit(email, otp, data.password)
   }
 
@@ -99,7 +114,7 @@ function OTPAndNewPasswordModal({ isOpen, setIsOpen, email, handlePasswordSubmit
 
   return (
     <Modal open={isOpen} setOpen={setIsOpen} >
-      <div className='p-4'>
+      <div className='p-4 w-[50vh]'>
         <h4 className='text-center text-4xl font-bold upper mb-5'>{t(transalationKey.usersignup.form.lables.enterotp)}</h4>
         <p className='text-center text-gray-500 '>{t(transalationKey.usersignup.form.lables.otpsetdto, { email })}</p>
         <OTP rootRef={rootRef} disabled={!(time > 0)} length={6} />
@@ -112,12 +127,12 @@ function OTPAndNewPasswordModal({ isOpen, setIsOpen, email, handlePasswordSubmit
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-3'>
           {/* password field */}
 
-          <motion.div className='flex flex-col gap-2' initial={inputAnimation.initial} animate={inputAnimation.animate} >
+          <motion.div className='flex flex-col gap-2 my-3' initial={inputAnimation.initial} animate={inputAnimation.animate} >
             <Label>{t(transalationKey.form.label.password)}</Label>
             <Input {...register('password')} type='password' error={!!errors.password?.message} />
-            <div className='overflow-hidden h-5'>
+            <div className='overflow-hidden h-11'>
               <AnimatePresence>
-                {errors.password && <motion.p className='text-red-500' initial={errorAnimation.initial} animate={errorAnimation.animate} exit={errorAnimation.exit}>{errors.password.message}</motion.p>}
+                {errors.password && <motion.p className='text-red-500  flex' initial={errorAnimation.initial} animate={errorAnimation.animate} exit={errorAnimation.exit}>{errors.password.message}</motion.p>}
               </AnimatePresence>
             </div>
           </motion.div>
