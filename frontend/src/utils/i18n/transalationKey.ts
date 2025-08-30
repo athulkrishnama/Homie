@@ -9,8 +9,8 @@ export default {
         verify: "button.verify",
         verifying: "button.verifying",
         cancel: "button.cancel",
-        login:"button.login",
-        logout:"button.logout"
+        login: "button.login",
+        logout: "button.logout"
     },
     userlogin: {
         form: {
@@ -18,7 +18,8 @@ export default {
                 email: "userlogin.form.labels.email",
                 password: "userlogin.form.labels.password",
                 register: "userlogin.form.labels.register",
-                login: "userlogin.form.labels.login"
+                login: "userlogin.form.labels.login",
+                forgetPassword: "userlogin.form.labels.forgetPassword"
             },
             validations: {
                 email: {
@@ -72,7 +73,30 @@ export default {
             lables: {
                 adminLogin: "adminLogin.form.lables.adminLogin",
             },
-
         }
+    },
+    form: {
+        label: {
+            email: 'form.label.email',
+            password: 'form.label.password',
+            confirmPassword: 'form.label.confirmPassword',
+        },
+        errors: {
+            invalidMail: "form.errors.invalidMail",
+            passwordRequired: "form.errors.passwordRequired",
+            passwordMinLength: "form.errors.passwordMinLength",
+            passwordMaxLength: "form.errors.passwordMaxLength",
+            confirmPasswordRequired: "form.errors.confirmPasswordRequired",
+            passwordNotMatching: "form.errors.passwordNotMatching",
+        },
+        button: {
+            sendOtp: 'form.button.sendOtp',
+            sendingOtp: 'form.button.sendingOtp',
+            submit: 'form.button.submit',
+            submitting: 'form.button.submitting',
+        }
+    },
+    heading:{
+        forgetPassword:"heading.forgetPassword"
     }
 }

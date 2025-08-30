@@ -9,8 +9,8 @@
         "verify": "Verify",
         "verifying": "Verifying",
         "cancel": "Cancel",
-        "login":"Login",
-        "logout":"Logout"
+        "login": "Login",
+        "logout": "Logout"
     },
     "userlogin": {
         "form": {
@@ -18,7 +18,8 @@
                 "email": "Email",
                 "password": "Password",
                 "register": "Register",
-                "login": "Login"
+                "login": "Login",
+                "forgetPassword": "Forgot Password?"
             },
             "validations": {
                 "email": {
@@ -73,5 +74,29 @@
                 "adminLogin": "Admin Login"
             }
         }
+    },
+    "form": {
+        "label": {
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password"
+        },
+        "errors": {
+            "invalidMail": "Email is invalid",
+            "passwordRequired": "Password is required",
+            "passwordMinLength": "Atlease {{count}} characters are required",
+            "passwordMaxLength": "Maximum {{count}} characters are allowed",
+            "confirmPasswordRequired": "Confirm password is required",
+            "passwordNotMatching": "Password and confirm password not matching"
+        },
+        "button": {
+            "sendOtp": "Send OTP",
+            "sendingOtp": "Sending OTP",
+            "submit": "Submit",
+            "submitting": "Submitting"
+        }
+    },
+    "heading":{
+        "forgetPassword":"Forget Password"
     }
 }
