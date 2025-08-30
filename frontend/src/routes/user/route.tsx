@@ -7,7 +7,7 @@ export const Route = createFileRoute('/user')({
 function RouteComponent() {
   const location = useLocation()
 
-  if (location.pathname === '/user/login' || location.pathname === '/user/signup') {
+  if (location.pathname === '/user/login' || location.pathname === '/user/signup' || location.pathname === '/user/forgetPassword') {
     return <Outlet />
   }
 
