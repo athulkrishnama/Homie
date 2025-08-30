@@ -81,7 +81,10 @@ function LoginForm() {
             </motion.div>
 
             <Button type='submit' className='w-full'>{t(isSubmitting ? transalationKey.button.submiting : transalationKey.button.submit)}</Button>
-            <p className='my-2 font-medium hover:cursor-pointer' onClick={() => navigate({ to: '/user/signup' })}>{t(transalationKey.userlogin.form.labels.register)}</p>
+            <div className='flex justify-between'>
+                <p className='my-2 font-medium hover:cursor-pointer' onClick={() => navigate({ to: '/user/signup' })}>{t(transalationKey.userlogin.form.labels.register)}</p>
+                <p className='my-2 font-medium hover:cursor-pointer' onClick={() => navigate({ to: '/user/forgetPassword' })}>{t(transalationKey.userlogin.form.labels.forgetPassword)}</p>
+            </div>
         </form>
     )
 }
