@@ -11,21 +11,23 @@ interface modalProps {
 
 function Modal({ children, open, setOpen }: modalProps) {
 
-    const handleKeyPress = (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-            setOpen(false)
-        }
-    }
 
 
     useEffect(() => {
+
+        const handleKeyPress = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                setOpen(false)
+            }
+        }
+
         document.addEventListener('keydown', handleKeyPress);
 
         return () => {
             document.removeEventListener('keydown', handleKeyPress)
         }
 
-    }, [])
+    }, [setOpen])
 
     return (
         <AnimatePresence mode="sync">
