@@ -3,7 +3,7 @@ import React, { type ChangeEvent, type RefObject } from 'react'
 interface OTPProps {
     rootRef: RefObject<(HTMLInputElement | null)[]>
     disabled: boolean
-    onComplete(): void
+    onComplete?(): void
     length: number
 }
 
@@ -20,7 +20,7 @@ function OTP({ rootRef, disabled, onComplete , length}: OTPProps) {
         }
 
         if (index === rootRef.current.length - 1) {
-            onComplete()
+            onComplete?.()
         } else if (value !== '' && +value >= 0) {
             rootRef.current[index + 1]?.focus()
         }
