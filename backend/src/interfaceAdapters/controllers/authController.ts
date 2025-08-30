@@ -145,15 +145,15 @@ export class AuthController {
 
     async handleForgetPasswordVerifyOtp(req: Request, res: Response) {
         try {
-            const {email, newPassword, otp} = req.body;
+            const { email, password: newPassword, otp } = req.body;
 
-            if(!email || !newPassword || !otp){
-                res.status(HTTPStatus.BAD_REQUEST).json({message:"Required data missing", error:"Email and password is required"});
+            if (!email || !newPassword || !otp) {
+                throw new Error("Otp and password is required")
             }
 
             await this._forgetPasswordVerifyOtpUseCase.verifyOtp(email, otp, newPassword);
-            
-            res.status(HTTPStatus.OK).json({message:"Password updated successfully"})
+
+            res.status(HTTPStatus.OK).json({ message: "Password updated successfully" })
         } catch (error) {
             console.log(error);
             res.status(HTTPStatus.BAD_REQUEST).json({ message: "Error while verify OTP", error: error instanceof Error ? error.message : "OTP verifing error" });
