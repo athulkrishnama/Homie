@@ -1,5 +1,5 @@
 import ForgotPassword, { type forgetPasswordProps } from "@/components/shared/forgotPassword/ForgotPassword"
-import { useUserForgetPasswordRequestOtp, useUserForgetPasswordVerifyOtp } from "@/hooks/userApiHook"
+import { useUserForgetPasswordRequestOtp, useUserForgetPasswordResendOtp, useUserForgetPasswordVerifyOtp } from "@/hooks/userApiHook"
 import transalationKey from "@/utils/i18n/transalationKey"
 import { useNavigate } from "@tanstack/react-router"
 import { useTranslation } from "react-i18next"
@@ -15,7 +15,8 @@ function ForgotPasswordPage() {
   }
 
   const { mutate: requestOtpMutation } = useUserForgetPasswordRequestOtp();
-  const { mutate: verifyOtpMutation } = useUserForgetPasswordVerifyOtp()
+  const { mutate: verifyOtpMutation } = useUserForgetPasswordVerifyOtp();
+  const { mutate: resendOtpMutation } = useUserForgetPasswordResendOtp();
 
   const navigate = useNavigate()
 
@@ -48,9 +49,17 @@ function ForgotPasswordPage() {
   }
 
   async function onResendOtp(email: string) {
-    console.log(email)
+    resendOtpMutation({ email }, {
+      onSuccess: (data) => {
+        toast.success(data.message);
+      },
+      onError: (err) => {
+        toast.error(err.message)
+      }
+    })
     return
   }
+
   return (
     <ForgotPassword {...forgetPasswordProps} />
   )
