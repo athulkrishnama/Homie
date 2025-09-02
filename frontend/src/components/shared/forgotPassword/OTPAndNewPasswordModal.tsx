@@ -79,6 +79,11 @@ function OTPAndNewPasswordModal({ isOpen, setIsOpen, email, handlePasswordSubmit
     handlePasswordSubmit(email, otp, data.password)
   }
 
+  const handleResendOtpButton = () => {
+    setTime(2 * 60)
+    handleResendOtp(email)
+  }
+
   // useEffect(() => {
   //   if (intervalId.current === null && isOpen) {
   //     setTime(6 * 2)
@@ -119,7 +124,7 @@ function OTPAndNewPasswordModal({ isOpen, setIsOpen, email, handlePasswordSubmit
         <p className='text-center text-gray-500 '>{t(transalationKey.usersignup.form.lables.otpsetdto, { email })}</p>
         <OTP rootRef={rootRef} disabled={!(time > 0)} length={6} />
         <div className='flex justify-between my-3'>
-          <p onClick={() => handleResendOtp(email)} className='hover:cursor-pointer'>{t(transalationKey.usersignup.form.lables.resentOtp)}</p>
+          <p onClick={handleResendOtpButton} className='hover:cursor-pointer'>{t(transalationKey.usersignup.form.lables.resentOtp)}</p>
           <p>{`${String(Math.floor(time / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`}</p>
         </div>
 
