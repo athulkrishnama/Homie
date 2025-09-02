@@ -10,6 +10,7 @@ import { IResendOtpUseCase } from "../../domain/interfaces/useCase/auth/IResendO
 import { IsendOtpUseCase } from "../../domain/interfaces/useCase/auth/ISendOtp";
 import { IForgetPasswordSendOtpUseCase } from "../../domain/interfaces/useCase/auth/IForgetPasswordSendOtp";
 import { IForgetPasswordVerifyOtpUseCase } from "../../domain/interfaces/useCase/auth/ IForgetPasswordVerifyOtp";
+import { IForgetPasswordResendOtpUseCase } from "../../domain/interfaces/useCase/auth/IForgetPasswordResendOtp";
 
 export class AuthController {
     constructor(
@@ -22,7 +23,8 @@ export class AuthController {
         private _resendOtpUseCase: IResendOtpUseCase,
         private _sendOtpUseCase: IsendOtpUseCase,
         private _forgetPasswordSendOtpUseCase: IForgetPasswordSendOtpUseCase,
-        private _forgetPasswordVerifyOtpUseCase: IForgetPasswordVerifyOtpUseCase) {
+        private _forgetPasswordVerifyOtpUseCase: IForgetPasswordVerifyOtpUseCase,
+        private _forgetPasswordResendOtpUseCase: IForgetPasswordResendOtpUseCase) {
 
     }
 
@@ -157,6 +159,22 @@ export class AuthController {
         } catch (error) {
             console.log(error);
             res.status(HTTPStatus.BAD_REQUEST).json({ message: "Error while verify OTP", error: error instanceof Error ? error.message : "OTP verifing error" });
+        }
+    }
+
+    async handleForgetPasswordResendOtp(req: Request, res: Response) {
+        try {
+            const { email } = req.body;
+
+            if (!email) {
+                throw new Error("Email is required");
+            }
+
+            await this._forgetPasswordResendOtpUseCase.resendOtp(email);
+            res.status(HTTPStatus.OK).json({ message: "OTP Send Successfully" })
+        } catch (error) {
+            console.log(error);
+            res.status(HTTPStatus.BAD_REQUEST).json({ message: "Error while resending OTP", error: error instanceof Error ? error.message : "OTP resending error" });
         }
     }
 }
