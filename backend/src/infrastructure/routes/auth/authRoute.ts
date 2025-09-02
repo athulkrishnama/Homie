@@ -38,6 +38,10 @@ export class AuthRouter {
         this.router.post("/verifyForgetPassword", (req: Request, res: Response) => {
             injectedAuthController.handleForgetPasswordVerifyOtp(req, res)
         })
+
+        this.router.post("/forgetPasswordResendOtp", (req: Request, res: Response) => {
+            injectedAuthController.handleForgetPasswordResendOtp(req, res)
+        })
     }
 
     public getRouter() {
