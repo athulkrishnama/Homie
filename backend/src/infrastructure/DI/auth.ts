@@ -20,6 +20,7 @@ import { ForgetPasswordUseCase } from "../../useCases/auth/forgetPasswordSendOtp
 import { UserModel } from "../persistantStorage/mongodb/models/userModel";
 import { ForgetPasswordOTPEmailContentGenerator } from "../services/emailContentGenerator/forgetPasswordOTPEmailContentGenerator";
 import { ForgetPasswordVerifyOtpUseCase } from "../../useCases/auth/forgetPasswordVerifyOtp";
+import { ForgetPasswordResendOtpUseCase } from "../../useCases/auth/ForgetPasswordResendOtp";
 
 // Create User Send Otp Controller
 const otpService = new OtpService()
@@ -30,7 +31,7 @@ const cacheStorage = new KeyValueTTLCaching()
 const sendOtpUseCase = new SendOtpUseCase(otpService, otpContentGenerator, emailSerivce, cacheStorage, userPersistance)
 
 const resendOtpContentGenerator = new ResendOtpEmailContentGenerator()
-const resendOtpUseCase = new ResendOtpUseCase(otpService, resendOtpContentGenerator, emailSerivce, cacheStorage)
+const resendOtpUseCase = new ResendOtpUseCase(otpService, resendOtpContentGenerator, emailSerivce, cacheStorage, userPersistance)
 
 const hashService = new HashService();
 const createUserUseCase = new CreateUserUseCase(userPersistance, hashService)
@@ -53,6 +54,8 @@ const forgetPasswordUseCase = new ForgetPasswordUseCase(userPersistance, otpServ
 
 const forgetPasswordVerifyOtpUseCase = new ForgetPasswordVerifyOtpUseCase(cacheStorage, userPersistance, hashService)
 
+const forgetPasswordResendOtpUsecase = new ForgetPasswordResendOtpUseCase(cacheStorage, emailSerivce, resendOtpContentGenerator, otpService, userPersistance);
+
 export const injectedAuthController = new AuthController(
     adminLoginUseCase,
     tokenCreationUseCase,
@@ -63,4 +66,6 @@ export const injectedAuthController = new AuthController(
     resendOtpUseCase,
     sendOtpUseCase,
     forgetPasswordUseCase,
-    forgetPasswordVerifyOtpUseCase)
+    forgetPasswordVerifyOtpUseCase,
+    forgetPasswordResendOtpUsecase
+)
