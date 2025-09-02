@@ -1,6 +1,6 @@
 import { store } from "@/store/store"
 
-export const isAuthenticated = (): boolean => {
+export const isUser = (): boolean => {
     return store.getState().user.isLogin && store.getState().user.data.isAdmin === false;
 }
 
