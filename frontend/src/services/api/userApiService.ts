@@ -77,3 +77,15 @@ export const userForgetPasswordVerifyOtp = async<T>(data: T) => {
         }
     }
 }
+
+export const userForgetPasswordResendOtp = async<T>(data: T) => {
+    try {
+        const response = await axiosInstance.post("/auth/forgetPasswordResendOtp", data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        if (error instanceof AxiosError) {
+            throw new Error(error.response?.data.error)
+        }
+    }
+}
