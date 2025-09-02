@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAdminLoginMutation } from "@/hooks/adminApiHook";
+import { setToken } from "@/store/slices/user/tokenSlice";
 import { setUser } from "@/store/slices/user/userDataSlice";
 import transalationKey from "@/utils/i18n/transalationKey";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -25,26 +26,27 @@ const inputAnimation = {
 }
 
 function AdminLoginForm() {
-    const {t} = useTranslation()
-    const {mutate} = useAdminLoginMutation();
+    const { t } = useTranslation()
+    const { mutate } = useAdminLoginMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
     const adminLoginFieldSchema = z.object({
         email: z.string().min(1, { error: t(transalationKey.userlogin.form.validations.email.required) }).email({ error: t(transalationKey.userlogin.form.validations.email.invalid) }),
-        password: z.string().min(1, { error: t(transalationKey.userlogin.form.validations.password.required) }).min(8, { error: t(transalationKey.userlogin.form.validations.password.min, {count:8}) }).max(15, { error: t(transalationKey.userlogin.form.validations.password.max, {count:15}) })
+        password: z.string().min(1, { error: t(transalationKey.userlogin.form.validations.password.required) }).min(8, { error: t(transalationKey.userlogin.form.validations.password.min, { count: 8 }) }).max(15, { error: t(transalationKey.userlogin.form.validations.password.max, { count: 15 }) })
     })
 
     type adminLoginFields = z.infer<typeof adminLoginFieldSchema>
 
     const onSubmit: SubmitHandler<adminLoginFields> = (data) => {
-        mutate(data,{
-            onSuccess:(response)=>{
+        mutate(data, {
+            onSuccess: (response) => {
+                dispatch(setToken(response.accessToken))
                 dispatch(setUser(response.user))
-                navigate({to:'/admin', replace:true})
+                navigate({ to: '/admin', replace: true })
                 toast.success(response.message);
             },
-            onError:(err)=>{
+            onError: (err) => {
                 toast.error(err.message)
             }
         })
@@ -75,7 +77,9 @@ function AdminLoginForm() {
                 </div>
             </motion.div>
 
-            <motion.div initial={{y:10}} animate={{y:0}}><Button type='submit' className='w-full'>{t(isSubmitting ? transalationKey.button.submiting : transalationKey.button.submit)}</Button></motion.div>
+            <motion.div initial={{ y: 10 }} animate={{ y: 0 }}><Button type='submit' className='w-full'>{t(isSubmitting ? transalationKey.button.submiting : transalationKey.button.submit)}</Button></motion.div>
+
+            <Button type="button" className="my-2" variant={'link'} onClick={() => navigate({ to: "/admin/forgetPassword" })}>{t(transalationKey.heading.forgetPassword)} ?</Button>
         </form>
     )
 }
