@@ -1,4 +1,4 @@
-import { userForgetPasswordRequestOtp, userForgetPasswordVerifyOtp, userLogin, userSignupResendOtp, userSignupSendOtp as userSignupSendOtpApi, userSignupVerify } from "@/services/api/userApiService"
+import { userForgetPasswordRequestOtp, userForgetPasswordResendOtp, userForgetPasswordVerifyOtp, userLogin, userSignupResendOtp, userSignupSendOtp as userSignupSendOtpApi, userSignupVerify } from "@/services/api/userApiService"
 import type { userLoginRequestType } from "@/types/api/requestTypes/userLogin"
 import { type IBaseResponse } from "@/types/api/responseTypes/baseResponse"
 import type { UserLoginResponse } from "@/types/api/responseTypes/userLoginResponse"
@@ -41,5 +41,11 @@ export const useUserForgetPasswordRequestOtp = () => {
 export const useUserForgetPasswordVerifyOtp = () => {
     return useMutation({
         mutationFn: (data: userForgetPasswordVerifyOtpType) => userForgetPasswordVerifyOtp<userForgetPasswordVerifyOtpType>(data)
+    })
+}
+
+export const useUserForgetPasswordResendOtp = () => {
+    return useMutation({
+        mutationFn: (data: userForgetPasswordSendOtpType) => userForgetPasswordResendOtp<userForgetPasswordSendOtpType>(data)
     })
 }
