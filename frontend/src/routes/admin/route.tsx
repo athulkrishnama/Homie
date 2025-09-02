@@ -1,4 +1,5 @@
-import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router'
+import { useAppSelector } from '@/hooks/storeHook';
+import { createFileRoute, Navigate, Outlet, useLocation } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/admin')({
   component: RouteComponent,
@@ -7,11 +8,16 @@ export const Route = createFileRoute('/admin')({
 function RouteComponent() {
   const location = useLocation();
 
-  if(location.pathname === '/admin/login')return <Outlet/>
+  const user = useAppSelector((store) => store.user)
+
+  if (location.pathname === '/admin/login' || location.pathname === '/admin/forgetPassword') return <Outlet />
 
   return (
     <>
-      <Outlet/>
+    {
+      user.isLogin && user.data.isAdmin ? <Outlet /> : <Navigate to='/admin/login' replace/>
+    }
+      
     </>
   )
 }
