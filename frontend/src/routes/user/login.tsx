@@ -3,13 +3,13 @@ import Logo from '@/assets/logoWhite.svg'
 import { useTranslation } from 'react-i18next'
 import transalationKey from '@/utils/i18n/transalationKey'
 import LoginForm from '@/components/user/Login/LoginForm'
-import { isAuthenticated } from '@/utils/auth'
+import { isUser } from '@/utils/auth'
 
 
 export const Route = createFileRoute('/user/login')({
   component: RouteComponent,
   beforeLoad:()=>{
-    if(isAuthenticated()){
+    if(isUser()){
       throw redirect({to:"/user", replace:true})
     }
   }
